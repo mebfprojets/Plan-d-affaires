@@ -8,6 +8,11 @@ use App\Models\Pack;
 use App\Models\Planning;
 use App\Models\Promoteur;
 use App\Models\Entreprise;
+use App\Models\Employe;
+use App\Models\ChiffreAffaire;
+use App\Models\ChiffreAffaireFirstYear;
+use App\Models\ChareExploitation;
+use App\Models\Payement;
 
 class PlanAffaire extends Model
 {
@@ -26,7 +31,7 @@ class PlanAffaire extends Model
         return $this->hasMany(Planning::class, 'id_plan_affaire');
     }
 
-    // Récupérer le promoteur
+    // Récupérer les promoteurs
     public function promoteurs()
     {
         return $this->hasMany(Promoteur::class, 'id_plan_affaire');
@@ -36,5 +41,28 @@ class PlanAffaire extends Model
     public function entreprise()
     {
         return $this->belongsTo(Entreprise::class, 'id_entreprise');
+    }
+
+    // Récupérer les employe
+    public function employes()
+    {
+        return $this->hasMany(Employe::class, 'id_plan_affaire');
+    }
+
+    // Récupérer les chiffres d'affaire
+    public function chiffre_affaires()
+    {
+        return $this->hasMany(ChiffreAffaire::class, 'id_plan_affaire');
+    }
+    // Récupérer les chiffres d'affaire
+    public function chiffre_affaire_first_years()
+    {
+        return $this->hasMany(ChiffreAffaireFirstYear::class, 'id_plan_affaire');
+    }
+
+    // Récupérer le paiement associé
+    public function paiement()
+    {
+        return $this->belongsTo(Payement::class, 'id_plan_affaire');
     }
 }

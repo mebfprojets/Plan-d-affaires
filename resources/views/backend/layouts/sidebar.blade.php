@@ -8,7 +8,7 @@
                 <li class="nav-small-cap">APPLICATION</li>
                 <li> <a href="{{ route('admin.dashboard') }}"><i class="mdi mdi-gauge"></i>Dashboard </a></li>
                 @can('packs.index')
-                <li class="@yield('plans')"><a class="@yield('plans')" href="{{ route('packs.index') }}"><i class="mdi mdi-bullseye"></i>Packs</a></li>
+                <li class="@yield('plans')"><a class="@yield('packs')" href="{{ route('packs.index') }}"><i class="mdi mdi-bullseye"></i>Packs</a></li>
                 @endcan
                 @can('businessplans.index')
                 <li class="@yield('plans')"> <a class="@yield('plans')" href="{{ route('businessplans.index') }}"><i class="mdi mdi-book-open"></i>Plans d'affaire</a></li>

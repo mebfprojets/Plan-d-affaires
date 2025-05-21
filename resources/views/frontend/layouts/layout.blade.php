@@ -53,7 +53,7 @@
 
   <!-- Preloader -->
   <div id="preloader"></div>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Vendor JS Files -->
   <script src="{{ asset('/frontend/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('/frontend/assets/vendor/php-email-form/validate.js') }}"></script>
@@ -67,29 +67,13 @@
 
   <!-- Main JS File -->
   <script src="{{ asset('/frontend/assets/js/main.js') }}"></script>
+  <script src="{{ asset('/script.js') }}"></script>
   <script>
-    // Charger les activités depuis localStorage au chargement de la page
-    window.onload = function() {
-        loadActivities();
-    };
 
-    // Ajouter une nouvelle ligne d'activité
-    function addRow() {
-        const table = document.getElementById("activities-table");
-        const rowCount = table.rows.length + 1;
-        const newRow = `
-            <tr>
-                <th scope="row">${rowCount}</th>
-                <td><input type="text" name="etapes_activites[]" class="form-control"></td>
-                <td><input type="date" name="dates_indicatives[]" class="form-control"></td>
-            </tr>`;
-        table.insertAdjacentHTML("beforeend", newRow);
 
-        saveActivities(); // Sauvegarder les activités
-    }
 
     // Sauvegarder les activités dans localStorage
-    function saveActivities() {
+    /*function saveActivities() {
         const rows = Array.from(document.querySelectorAll("#activities-table tr"));
         const activities = rows.map(row => {
             const etape = row.querySelector('input[name="etapes_activites[]"]').value;
@@ -97,10 +81,10 @@
             return { etape, date };
         });
         localStorage.setItem("activities", JSON.stringify(activities));
-    }
+    }*/
 
     // Charger les activités depuis localStorage
-    function loadActivities() {
+    /*function loadActivities() {
         const table = document.getElementById("activities-table");
         const activities = JSON.parse(localStorage.getItem("activities")) || [];
         activities.forEach((activity, index) => {
@@ -112,7 +96,7 @@
                 </tr>`;
             table.insertAdjacentHTML("beforeend", newRow);
         });
-    }
+    }*/
   </script>
 
 </body>

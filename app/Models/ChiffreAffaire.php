@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChiffreAffaire extends Model
 {
-    //
+    protected $guarded = [];
 }

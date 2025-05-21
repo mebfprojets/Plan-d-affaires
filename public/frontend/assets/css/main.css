@@ -2595,3 +2595,9 @@ section,
     border: 15px solid transparent;
     border-top-color: #54aa1a;
   }
+
+.promo {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 4px;
+}

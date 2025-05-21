@@ -12,6 +12,7 @@ use App\Models\Admin;
 use App\Models\Parametre;
 use App\Models\Valeur;
 use App\Models\Pack;
+use App\Models\PlanAffaire;
 use \Exception;
 use Carbon\Carbon;
 
@@ -60,8 +61,9 @@ class BackendController extends Controller
                             $permission->deleted_at = Carbon::now();
                             $permission->id_user_deleted = Auth::user()->id;
                             $permission->save();
+                        }else{
+                            return redirect()->route('admin.dashboard')->with('error', 'Vous n\'aviez pas le droit de supprimer cette ligne');
                         }
-                        return redirect()->route('admin.dashboard');
                         break;
                     case 'role':
                         if(Auth::user()->can('roles.delete')){
@@ -69,8 +71,9 @@ class BackendController extends Controller
                             $role->deleted_at = Carbon::now();
                             $role->id_user_deleted = Auth::user()->id;
                             $role->save();
+                        }else{
+                            return redirect()->route('admin.dashboard')->with('error', 'Vous n\'aviez pas le droit de supprimer cette ligne');
                         }
-                        return redirect()->route('admin.dashboard');
                         break;
                     case 'admin':
                         if(Auth::user()->can('admins.delete')){
@@ -78,8 +81,9 @@ class BackendController extends Controller
                             $admin->deleted_at = Carbon::now();
                             $admin->id_user_deleted = Auth::user()->id;
                             $admin->save();
+                        }else{
+                            return redirect()->route('admin.dashboard')->with('error', 'Vous n\'aviez pas le droit de supprimer cette ligne');
                         }
-                        return redirect()->route('admin.dashboard');
                         break;
                     case 'parametre':
                         if(Auth::user()->can('parametres.delete')){
@@ -87,8 +91,9 @@ class BackendController extends Controller
                             $parametre->deleted_at = Carbon::now();
                             $parametre->id_user_deleted = Auth::user()->id;
                             $parametre->save();
+                        }else{
+                            return redirect()->route('admin.dashboard')->with('error', 'Vous n\'aviez pas le droit de supprimer cette ligne');
                         }
-                        return redirect()->route('admin.dashboard');
                         break;
                     case 'valeur':
                         if(Auth::user()->can('valeurs.delete')){
@@ -96,8 +101,9 @@ class BackendController extends Controller
                             $valeur->deleted_at = Carbon::now();
                             $valeur->id_user_deleted = Auth::user()->id;
                             $valeur->save();
+                        }else{
+                            return redirect()->route('admin.dashboard')->with('error', 'Vous n\'aviez pas le droit de supprimer cette ligne');
                         }
-                        return redirect()->route('admin.dashboard');
                         break;
                     case 'pack':
                         if(Auth::user()->can('packs.delete')){
@@ -105,15 +111,27 @@ class BackendController extends Controller
                             $pack->deleted_at = Carbon::now();
                             $pack->id_user_deleted = Auth::user()->id;
                             $pack->save();
+                        }else{
+                            return redirect()->route('admin.dashboard')->with('error', 'Vous n\'aviez pas le droit de supprimer cette ligne');
                         }
-                        return redirect()->route('admin.dashboard');
+                        break;
+                    case 'plan_affaire':
+                        if(Auth::user()->can('businessplans.delete')){
+                            $business_plan = PlanAffaire::find($id_ligne);
+                            $business_plan->deleted_at = Carbon::now();
+                            $business_plan->id_user_deleted = Auth::user()->id;
+                            $business_plan->save();
+                        }else{
+                            return redirect()->route('admin.dashboard')->with('error', 'Vous n\'aviez pas le droit de supprimer cette ligne');
+                        }
                         break;
 
                     default:
-                        dd('Erreur lors de la suppresion');
                         return redirect()->back()->with('error', 'Erreur lors de la suppresion');
                         break;
                 }
+
+                return redirect()->back()->with('success', 'Suppression réalisée avec succès');
             } catch (Exception $ex) {
                 dd($ex);
             }

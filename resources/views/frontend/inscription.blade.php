@@ -79,7 +79,7 @@
                     <p><i>Décrivez ce qui a déjà été réalisé, ce qui est en cours et ce qui est à venir (Exemple : élaboration du plan d’affaires, mobilisation du financement, construction et aménagement, achat des équipements, négociation avec les fournisseurs, élaboration du plan de communication, recrutement du personnel, démarrage de la production, ouverture officielle).</i></p>
                     <div class="table-responsive">
                         <div class="btn-actions text-right">
-                            <button type="button" class="btn btn-secondary btn-sm" onclick="addRow()">
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="addStepRow()">
                                 <i class="bi bi-plus"></i> Ajouter une activité
                             </button>
                         </div>
@@ -95,7 +95,7 @@
                                 <tr>
                                     <th scope="row">1</th>
                                     <td><input type="text" name="etapes_activites[]" class="form-control" placeholder="Etape de l'activité"></td>
-                                    <td><input type="date" name="dates_indicatives[]" class="form-control" placeholder="jj/mm/aaaa"></td>
+                                    <td><input type="date" name="dates_indicatives[]" class="form-control"></td>
                                 </tr>
                             </tbody>
                         </table>

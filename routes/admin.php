@@ -10,6 +10,9 @@ use App\Http\Controllers\ValeurController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RoleController;
+use App\Livewire\Chat\Index;
+use App\Livewire\Chat\Chat;
+use App\Livewire\Users;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware('guest:admin')->group(function () {
@@ -36,6 +39,13 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('souscription/{id_session_client}', [SessionPlanController::class, 'showSouscription'])->name('souscription.show');
     Route::post('souscription/valider', [SessionPlanController::class, 'validerSouscription'])->name('souscription.valider');
     Route::get('/business_plan/modele/{id_plan_affaire}', [BusinessPlanController::class, 'downloadBusinessPlan'])->name('businessplans.download');
+    Route::get('/business_plan/show/{id_plan_affaire}', [BusinessPlanController::class, 'showBusinessPlan'])->name('businessplans.show');
+    Route::get('/business_plan/edit/{id_plan_affaire}', [BusinessPlanController::class, 'editBusinessPlan'])->name('business_plans.edit');
+    Route::get('/get/pa', [BusinessPlanController::class, 'getPa'])->name('pa.get');
+    Route::post('/save/imput', [BusinessPlanController::class, 'saveImputation'])->name('imput.save');
+    Route::get('/chat', Index::class)->name('chat.index');
+    Route::get('/chat/{query}', Chat::class)->name('chat');
+    Route::get('/users',Users::class)->name('users');
     // Route::get('sessionformations/souscription', [SessionPlanController::class, 'souscription'])->name('sessionformation.souscription');
     Route::post('logout', [LoginController::class, 'destroy'])->name('admin.logout');
 });

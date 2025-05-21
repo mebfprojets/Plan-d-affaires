@@ -31,27 +31,34 @@
                         <div class="card-body">
 
                                 <div class="row mb-3">
-                                    <label for="age" class="col-lg-3 col-form-label">Numéro payement</label>
+                                    <label for="numero_paye" class="col-lg-3 col-form-label">Numéro payement</label>
                                     <div class="col-lg-9">
-                                        <input type="number" class="form-control" id="age" name="age" placeholder="56 00 00 00">
+                                        <input type="number" class="form-control" id="numero_paye" name="numero_paye" placeholder="56 00 00 00" value="{{ old('numero_paye') }}">
+                                        @error('numero_paye')
+                                            <span class="text-red-500">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="domicile" class="col-lg-3 col-form-label">Montant pack</label>
+                                    <label for="montant_paye" class="col-lg-3 col-form-label">Montant pack</label>
                                     <div class="col-lg-9">
-                                        <input type="number" class="form-control" id="domicile" name="domicile" disabled placeholder="{{ $business_plan->pack?$business_plan->pack->cout_pack:0 }}" value="{{ $business_plan->pack?$business_plan->pack->cout_pack:0 }}">
+                                        <input type="number" class="form-control" id="montant_paye" disabled placeholder="{{ $business_plan->pack?$business_plan->pack->cout_pack:0 }}" value="{{ $business_plan->pack?$business_plan->pack->cout_pack:0 }}">
+                                        <input type="hidden" name="montant_paye" value="{{ $business_plan->pack?$business_plan->pack->cout_pack:0 }}">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="adresse" class="col-lg-3 col-form-label">Code OTP</label>
+                                    <label for="code_opt_paye" class="col-lg-3 col-form-label">Code OTP</label>
                                     <div class="col-lg-9">
-                                        <input type="text" class="form-control" id="adresse" name="adresse" placeholder="223 556">
+                                        <input type="text" class="form-control" id="code_opt_paye" name="code_opt_paye" placeholder="223 556" value="{{ old('code_opt_paye') }}">
+                                        @error('code_opt_paye')
+                                            <span class="text-red-500">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end mt-2">
-                                    <button type="submit" class="btn btn-success mx-1">Valider</button>
+                                    <button type="submit" class="btn btn-success mx-1">Payer</button>
                                 </div>
                         </div>
                     </div>
