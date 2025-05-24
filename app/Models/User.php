@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\PlanAffaire;
 
 class User extends Authenticatable
 {
@@ -60,5 +61,10 @@ class User extends Authenticatable
     public function receivesBroadcastNotificationsOn(): string
     {
         return 'users.'.$this->id;
+    }
+
+    public function nombrePA()
+    {
+        return $this->belongsTo(PlanAffaire::class, 'id_user');
     }
 }

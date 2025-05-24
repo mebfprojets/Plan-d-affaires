@@ -38,7 +38,7 @@
                     <p class="mb-0">{{ Auth::user()->name }}</p>
                 </li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Profil</a></li>
+                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profil</a></li>
                 <li><a class="dropdown-item" href="#">Paramètres</a></li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST">

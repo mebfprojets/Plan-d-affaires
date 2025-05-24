@@ -28,7 +28,7 @@
             window.Livewire.emit('refresh');
         }
     });
-   
+
    "
  class="flex flex-col transition-all h-full overflow-hidden">
 
@@ -73,10 +73,10 @@
         <ul class="p-2 grid w-full spacey-y-2">
 
             @if ($conversations)
-                
+
             @foreach ($conversations as $key=> $conversation)
-                
-           
+
+
             <li
               id="conversation-{{$conversation->id}}" wire:key="{{$conversation->id}}"
              class="py-3 hover:bg-gray-50 rounded-2xl dark:hover:bg-gray-700/70 transition-colors duration-150 flex gap-4 relative w-full cursor-pointer px-2 {{$conversation->id==$selectedConversation?->id ? 'bg-gray-100/70':''}}">
@@ -124,12 +124,12 @@
                                             <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
                                         </svg>
                                     </span>
-                                    
-                            @endif
-                            @endif
-                      
 
-                   
+                            @endif
+                            @endif
+
+
+
 
                              <p class="grow truncate text-sm font-[100]">
                                {{$conversation->messages?->last()?->body??' '}}
@@ -140,7 +140,7 @@
                              <span class="font-bold p-px px-2 text-xs shrink-0 rounded-full bg-blue-500 text-white">
                                 {{$conversation->unreadMessagesCount()}}
                              </span>
-                                 
+
                              @endif
 
 
@@ -161,11 +161,11 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical w-7 h-7 text-gray-700" viewBox="0 0 16 16">
                                         <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                                       </svg>
-                               
+
 
                                 </button>
                             </x-slot>
-        
+
                             <x-slot name="content">
 
                                 <div class="w-full p-1">
@@ -182,7 +182,7 @@
                                         View Profile
 
                                     </button>
-                                    <button 
+                                    <button
                                     onclick="confirm('Are you sure?')||event.stopImmediatePropagation()"
                                     wire:click="deleteByUser('{{encrypt($conversation->id)}}')"
                                     class="items-center gap-3 flex w-full px-4 py-2 text-left text-sm leading-5 text-gray-500 hover:bg-gray-100 transition-all duration-150 ease-in-out focus:outline-none focus:bg-gray-100">
@@ -200,7 +200,7 @@
 
 
                                 </div>
-                     
+
                             </x-slot>
                         </x-dropdown>
 
@@ -215,7 +215,7 @@
             @endforeach
 
             @else
-                
+
             @endif
 
         </ul>

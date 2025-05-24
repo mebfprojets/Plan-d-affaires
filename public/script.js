@@ -38,7 +38,7 @@ function addEmployeRow() {
         <td><input type="number" class="form-control" name="effectif[]" placeholder="Effectif"></td>
         <td><input type="number" class="form-control" name="salaire[]" placeholder="Salaires mensuels"></td>
         <td><input type="text" class="form-control" name="taches[]" placeholder="Tâches prévues"></td>
-        <td><button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)"><i class="fa fa-trash"></i></button></td>
+        <td><button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)"><i class="bi bi-trash"></i></button></td>
     `;
 
     tableBody.appendChild(newRow);
@@ -50,12 +50,13 @@ function addEstimationRow() {
     var newRow = document.createElement('tr');
 
     newRow.innerHTML = `
-        <td><input type="text" class="form-control" name="designation[]" placeholder="Désignation"></td>
-        <td><input type="text" class="form-control" name="unite[]" placeholder="Unité"></td>
-        <td><input type="number" class="form-control" name="quantite[]" placeholder="Quantité"></td>
-        <td><input type="number" class="form-control" name="prix_unitaire[]" placeholder="PU"></td>
-        <td><input type="text" class="form-control" name="montant[]" disabled value="0"></td>
-        <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeRow(this)"><i class="fa fa-trash"></i></button></td>
+        <td><input type="text" class="form-control" name="produits[]" placeholder="Produit"></td>
+        <td><input type="text" class="form-control" name="an_1[]" placeholder="Montant"></td>
+        <td><input type="number" class="form-control" name="an_2[]" placeholder="Montant"></td>
+        <td><input type="number" class="form-control" name="an_3[]" placeholder="Montant"></td>
+        <td><input type="text" class="form-control" name="an_4[]" placeholder="Montant"></td>
+        <td><input type="text" class="form-control" name="an_5[]" placeholder="Montant"></td>
+        <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeRow(this)"><i class="bi bi-trash"></i></button></td>
     `;
 
     tableBody.appendChild(newRow);
@@ -74,7 +75,7 @@ function addEstimationFirstRow() {
         <td><input type="number" class="form-control" name="prix_unitaire_first[]" placeholder="PU"></td>
         <td><input type="number" class="form-control" name="ca_mensuel[]" placeholder="CA mensuel"></td>
         <td><input type="number" class="form-control" name="ca_annuel[]" placeholder="CA annuel"></td>
-        <td><button type="button" class="btn btn-danger btn-sm btn-sm removeRow" onclick="removeRow(this)"><i class="fa fa-trash"></i></button></td>
+        <td><button type="button" class="btn btn-danger btn-sm btn-sm removeRow" onclick="removeRow(this)"><i class="bi bi-trash"></i></button></td>
     `;
 
     tableBody.appendChild(newRow);

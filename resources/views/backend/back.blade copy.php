@@ -87,49 +87,69 @@
     <!-- Row -->
     <div class="row">
         <div class="col-lg-8 col-md-7">
-            <div class="card card-default">
-                <div class="card-header">
-                    <div class="card-actions">
-                        <a class="" data-action="collapse"><i class="ti-minus"></i></a>
-                        <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
-                        <a class="btn-close" data-action="close"><i class="ti-close"></i></a>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div>
+                            <h4 class="card-title">Yearly Earning</h4>
+                        </div>
+                        <div class="ml-auto">
+                            <ul class="list-inline">
+                                <li>
+                                    <h6 class="text-muted text-success"><i class="fa fa-circle font-10 m-r-10 "></i>iMac</h6> </li>
+                                <li>
+                                    <h6 class="text-muted  text-info"><i class="fa fa-circle font-10 m-r-10"></i>iPhone</h6> </li>
+
+                            </ul>
+                        </div>
                     </div>
-                    <h4 class="card-title m-b-0">Les cinq derniers PA</h4>
-                </div>
-                <div class="card-body collapse show">
-                    <div class="table-responsive">
-                        <table class="table product-overview">
-                            <thead>
-                                <tr>
-                                    <th>Pack</th>
-                                    <th>Idée du projet</th>
-                                    <th>Promoteur</th>
-                                    <th>Montant emprunt</th>
-                                    <th>Date création</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($plan_affaires as $plan_affaire)
-                                <tr>
-                                    <td>{{ $plan_affaire->pack->libelle }}</td>
-                                    <td>{{ $plan_affaire->business_idea }}</td>
-                                    <td>{{ $plan_affaire->promoteurs->count() }}</td>
-                                    <td>{{ $plan_affaire->montant_emprunt }}</td>
-                                    <td>{{ $plan_affaire->created_at }}</td>
-                                    <td>
-                                        @can('businessplans.editer')
-                                        <a href="{{ route('business_plans.edit', $plan_affaire->id) }}" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit"><i class="ti-marker-alt"></i></a>
-                                        <a href="{{ route('businessplans.show', $plan_affaire->id) }}" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete"><i class="ti-eye"></i></a>
-                                    </td>
-                                        @endcan
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                    <div id="morris-area-chart2" style="height: 405px;"></div>
+
                 </div>
             </div>
+            <div class="card card-default">
+                        <div class="card-header">
+                            <div class="card-actions">
+                                <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                                <a class="btn-minimize" data-action="expand"><i class="mdi mdi-arrow-expand"></i></a>
+                                <a class="btn-close" data-action="close"><i class="ti-close"></i></a>
+                            </div>
+                            <h4 class="card-title m-b-0">Les cinq derniers PA</h4>
+                        </div>
+                        <div class="card-body collapse show">
+                            <div class="table-responsive">
+                                <table class="table product-overview">
+                                    <thead>
+                                        <tr>
+                                            <th>Pack</th>
+                                            <th>Idée du projet</th>
+                                            <th>Promoteur</th>
+                                            <th>Montant emprunt</th>
+                                            <th>Date création</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($plan_affaires as $plan_affaire)
+                                        <tr>
+                                            <td>{{ $plan_affaire->pack->libelle }}</td>
+                                            <td>{{ $plan_affaire->business_idea }}</td>
+                                            <td>{{ $plan_affaire->promoteurs->count() }}</td>
+                                            <td>{{ $plan_affaire->montant_emprunt }}</td>
+                                            <td>{{ $plan_affaire->created_at }}</td>
+                                            <td>
+                                                @can('businessplans.editer')
+                                                <a href="{{ route('business_plans.edit', $plan_affaire->id) }}" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit"><i class="ti-marker-alt"></i></a>
+                                                <a href="{{ route('businessplans.show', $plan_affaire->id) }}" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete"><i class="ti-eye"></i></a>
+                                            </td>
+                                                @endcan
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
         </div>
         <div class="col-lg-4 col-md-5">
             <!-- Column -->
@@ -143,6 +163,7 @@
                     <h4 class="card-title m-b-0">Status PA</h4>
                 </div>
                 <div class="card-body collapse show">
+                <div id="morris-donut-chart" class="ecomm-donute" style="height: 317px;"></div>
                     <ul class="list-inline m-t-20 text-center">
                     <li >
                         <h6 class="text-muted"><i class="fa fa-circle text-info"></i> Inscrits</h65>

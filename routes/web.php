@@ -19,11 +19,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/service/{slug_pack}', [FrontendController::class, 'servicePack'])->name('packs.service');
     Route::post('/business_plan/store', [BusinessPlanController::class, 'storeBusinessPlan'])->name('businessplans.store');
     Route::get('/business_plan/edit/{id_plan_affaire}', [BusinessPlanController::class, 'editBusinessPlan'])->name('businessplans.edit');
     Route::post('/business_plan/update/{id_plan_affaire}', [BusinessPlanController::class, 'updateBusinessPlan'])->name('businessplans.update');
-    Route::get('/business_plan/valider/{id_plan_affaire}', [BusinessPlanController::class, 'validerBusinessPlan'])->name('businessplans.valider');
     Route::get('/business_plan/payer/{id_plan_affaire}', [BusinessPlanController::class, 'payerBusinessPlan'])->name('businessplans.payer');
     Route::post('/business_plan/payer/{id_plan_affaire}', [BusinessPlanController::class, 'validerPayBusinessPlan']);
     Route::get('/pa/edit/{id_plan_affaire}', [BusinessPlanController::class, 'editBusinessPlan'])->name('businessplans.edit');

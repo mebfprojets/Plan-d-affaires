@@ -151,6 +151,9 @@
     <!-- end - This is for export functionality only -->
 
     <script>
+        window.onload = function() {
+            getStat();
+        }
         $(document).ready(function() {
             // For select 2
             $(".select2").select2();
@@ -246,6 +249,33 @@
                     document.location.reload();
                 }
             });
+        }
+
+        function getStat(){
+            var url_stat = "{{ route('data.stat') }}";
+            $.ajax({
+                    url: url_stat,
+                    type: 'GET',
+                    dataType: 'json',
+                    error:function(data){
+                        //alert("Erreur");
+                    },
+                    success: function (data) {
+
+                        //Statistiques globales
+                        $("#total_prom").text(data.data.total_prom.toLocaleString('fr-FR'));
+                        $("#total_en").text(data.data.total_en.toLocaleString('fr-FR'));
+                        $("#total_pa").text(data.data.total_pa.toLocaleString('fr-FR'));
+                        $("#total_pay").text(data.data.total_pay.toLocaleString('fr-FR') + " FCFA");
+
+                        //Statistiques status
+                        $("#total_ins").text(data.data.total_pa.toLocaleString('fr-FR'));
+                        $("#nombre_np").text(data.data.nombre_np.toLocaleString('fr-FR'));
+                        $("#nombre_val").text(data.data.nombre_val.toLocaleString('fr-FR'));
+
+                    }
+            });
+
         }
 
     </script>

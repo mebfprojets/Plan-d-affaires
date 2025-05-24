@@ -102,7 +102,14 @@ class BusinessPlanController extends Controller
         $business_plan = PlanAffaire::find($id_plan_affaire);
         $sexes = Valeur::where('id_parametre', env('sexe'))->whereNull('deleted_at')->get();
         $situation_familles = Valeur::where('id_parametre', env('situation_famille'))->whereNull('deleted_at')->get();
-        $charges = Valeur::whereIn('id_parametre', [3, 4, 5, 6, 7, 8, 9, 10])->whereNull('deleted_at')->get();
+        $charges = DB::table('valeurs as v')
+                        ->join('parametres as p', 'p.id', 'v.id_parametre')
+                        ->select('v.*')
+                        ->whereIn('v.id_parametre', [3, 4, 5, 6, 7, 8, 9, 10])
+                        ->whereNull('p.deleted_at')
+                        ->whereNull('v.deleted_at')
+                        ->get();
+        // dd($charges);
         $groupedCharges = DB::table('valeurs as v')
                     ->leftJoin('chare_exploitations as ce', function ($join) use ($id_plan_affaire){
                         $join->on('ce.id_valeur', '=', 'v.id')
@@ -121,6 +128,7 @@ class BusinessPlanController extends Controller
                     )
                     ->whereIn('v.id_parametre', [3, 4, 5, 6, 7, 8, 9, 10])
                     ->whereNull('v.deleted_at')
+                    ->whereNull('p.deleted_at')
                     ->orderBy('id_parametre', 'ASC')
                     ->get()
                     ->groupBy('id_parametre');
@@ -258,19 +266,21 @@ class BusinessPlanController extends Controller
             $removePlanning = Planning::where('id_plan_affaire', $business_plan->id)->delete();
             $etapes = $request->input('etapes_activites');
             $dates = $request->input('dates_indicatives');
-            foreach ($etapes as $index => $etape) {
-                $date = $dates[$index];
+            if($etapes){
+                foreach ($etapes as $index => $etape) {
+                    $date = $dates[$index];
 
-                // Enregistrer chaque activité dans la base de données
-                if($date && $etape){
-                    Planning::create([
-                        'id_plan_affaire' => $business_plan->id,
-                        'step_activity' => $etape,
-                        'date_indicative' => $date,
-                    ]);
+                    // Enregistrer chaque activité dans la base de données
+                    if($date && $etape){
+                        Planning::create([
+                            'id_plan_affaire' => $business_plan->id,
+                            'step_activity' => $etape,
+                            'date_indicative' => $date,
+                        ]);
+                    }
                 }
-
             }
+
 
             // EMPLOYES
             $removeEmploye = Employe::where('id_plan_affaire', $business_plan->id)->delete();
@@ -297,21 +307,24 @@ class BusinessPlanController extends Controller
 
             // Estimation du chiffre d’affaires
             $removeChiffreAffaire = ChiffreAffaire::where('id_plan_affaire', $business_plan->id)->delete();
-            $designations = $request->input('designation');
-            $unites = $request->input('unite');
-            $quantites = $request->input('quantite');
-            $prix_unitaires = $request->input('prix_unitaire');
-            foreach ($designations as $index => $designation) {
+            $produits = $request->input('produits');
+            $an_1s = $request->input('an_1');
+            $an_2s = $request->input('an_2');
+            $an_3s = $request->input('an_3');
+            $an_4s = $request->input('an_4');
+            $an_5s = $request->input('an_5');
+            foreach ($produits as $index => $produit) {
 
                 // Enregistrer chaque activité dans la base de données
-                if($designation){
+                if($produit){
                     ChiffreAffaire::create([
                         'id_plan_affaire' => $business_plan->id,
-                        'designation' => $designation,
-                        'unite' => $unites[$index],
-                        'quantite' => $quantites[$index],
-                        'prix_unitaire' => $prix_unitaires[$index],
-                        'montant' => $quantites[$index]*$prix_unitaires[$index],
+                        'produit' => $produit,
+                        'an_1' => $an_1s[$index],
+                        'an_2' => $an_2s[$index],
+                        'an_3' => $an_3s[$index],
+                        'an_4' => $an_4s[$index],
+                        'an_5' => $an_4s[$index],
                     ]);
                 }
             }

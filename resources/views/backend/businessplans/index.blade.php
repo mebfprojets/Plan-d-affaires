@@ -49,13 +49,23 @@
                                     <td>{{ $businessplan->montant_emprunt }}</td>
                                     <td>{{ $businessplan->created_at }}</td>
                                     <td>
+                                        @can('businessplans.editer')
+                                        @if($businessplan->id_admin_imput && !$businessplan->is_valide)
                                         <a href="{{ route('business_plans.edit', $businessplan->id) }}" class="btn-actions"><i class="fa fa-pencil"></i></a>
+                                        @endif
+                                        @endcan
+                                        @can('businessplans.index')
                                         <a href="{{ route('businessplans.show', $businessplan->id) }}" class="btn-actions"><i class="fa fa-eye"></i></a>
+                                        @endcan
+                                        @can('businessplans.imputer')
                                         <a href="#" title="Imputer" data-toggle="modal" data-target="#bs-imput-modal" class="btn-actions" onclick="getPA('{{ $businessplan->id }}')"><i class="fa fa-user"></i></a>
+                                        @endcan
                                         @can('businessplans.download')
                                             <a href="{{ route('businessplans.download', $businessplan->id) }}" class="btn-actions"><i class="fa fa-book"></i></a>
                                         @endcan
+                                        @can('businessplans.delete')
                                         <button type="button" class="btn-actions btn-danger" style="color:#fff; border:0; cursor: pointer;" onclick="deleteLinge('{{ $businessplan->id }}', 'plan_affaire', 'Voulez-vous vraiment supprimer ce plan d\'affaire?')"><i class="fa fa-trash"></i></button>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach

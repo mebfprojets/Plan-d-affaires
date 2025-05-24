@@ -13,10 +13,12 @@ use App\Models\ChiffreAffaire;
 use App\Models\ChiffreAffaireFirstYear;
 use App\Models\ChareExploitation;
 use App\Models\Payement;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PlanAffaire extends Model
 {
     use HasUuids;
+    use HasFactory;
     protected $guarded = [];
 
     // Récupérer le pack associé

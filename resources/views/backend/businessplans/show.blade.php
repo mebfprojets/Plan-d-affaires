@@ -38,9 +38,11 @@
     <!-- ============================================================== -->
     <!-- Start Page Content -->
     <!-- ============================================================== -->
+    @can('businessplans.valider')
     <div class="my-3 text-right">
         @if(!$business_plan->is_valide)<a class="btn btn-primary" href="{{ route('businessplans.valider', $business_plan->id) }}">Valider</a>@endif
     </div>
+    @endcan
     <div class="row">
         <div class="col-12">
             <div class="card">

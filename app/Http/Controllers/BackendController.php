@@ -41,8 +41,53 @@ class BackendController extends Controller
         // $superadmin->givePermissionTo($permissions);
         // $admin = Admin::find(Auth::user()->id);
         // $admin->assignRole($superadmin);
+        $plan_affaires = PlanAffaire::whereNull('deleted_at')->orderBy('created_at', 'DESC')->limit(5)->get();
 
-        return view('backend.back');
+        return view('backend.back', compact('plan_affaires'));
+    }
+
+    public function getStat()
+    {
+        if(!Auth::user()->can('statistique.view')) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        // Initialisation des variables pour les différents types de statistiques
+        $statistiques = [
+            //Stats gratuité femmes et enfants de moins de 5 ans
+            'total_prom' => 0,
+            'total_en' => 0,
+            'total_pa' => 0,
+            'total_pay' => 0,
+            'nombre_np' => 0,
+            'nombre_val' => 0,
+        ];
+
+        // Récupération des statistiques globales
+        $results = DB::table('plan_affaires as pa')
+                                ->leftJoin('promoteurs as p', 'p.id_plan_affaire', '=', DB::raw('pa.id::uuid'))
+                                ->join('packs as ps', 'ps.id', 'pa.id_pack')
+                                ->selectRaw('count(p.id) as total_prom, SUM(ps.cout_pack) as total_pay')
+                                ->groupBy('pa.id')
+                                ->get();
+
+
+        $statistiques['total_prom'] = floatval(round($results->sum('total_prom') ?? 0));
+        $statistiques['total_en'] = floatval(round($results->count() ?? 0));
+        $statistiques['total_pa'] = floatval(round($results->count() ?? 0));
+        $statistiques['total_pay'] = floatval(round($results->sum('total_pay') ?? 0));
+
+         // Récupération des statistiques status
+        $result_s = DB::table('plan_affaires as pa')
+                                ->join('payements as p', 'p.id_plan_affaire', '=', DB::raw('pa.id::uuid'))
+                                ->selectRaw('count(p.id) as nombre_np')
+                                ->whereNull('pa.deleted_at')
+                                ->first();
+        $result_v = PlanAffaire::selectRaw('count(*) as nombre_val')->where('is_valide', true)->whereNull('deleted_at')->first();
+        $statistiques['nombre_np'] = floatval(round($result_s->nombre_np ?? 0));
+        $statistiques['nombre_val'] = floatval(round($result_v->nombre_val ?? 0));
+
+        return response()->json(['data' => $statistiques]);
     }
 
     /**

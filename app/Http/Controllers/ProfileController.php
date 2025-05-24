@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\PlanAffaire;
 
 class ProfileController extends Controller
 {
@@ -17,8 +18,10 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        $plan_affaires = PlanAffaire::where('id_user', Auth::user()->id)->get();
+        return view('frontend.profile.show', [
             'user' => $request->user(),
+            'plan_affaires'=>$plan_affaires,
         ]);
     }
 

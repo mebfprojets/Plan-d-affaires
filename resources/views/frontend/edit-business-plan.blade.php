@@ -457,52 +457,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Estimation du chiffre d’affaires -->
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <h5 class="card-title">Estimation du chiffre d’affaires</h5>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-bordered" id="estimationTable">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Désignation</th>
-                                    <th scope="col">Unité</th>
-                                    <th scope="col">Quantité</th>
-                                    <th scope="col">Prix Unitaire (FCFA)</th>
-                                    <th scope="col">Montant (XOF)</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if(($business_plan->chiffre_affaires)->count()>0)
-                                    @foreach($business_plan->chiffre_affaires as $key => $business_plan_chiffre_affaire)
-                                    <tr>
-                                        <td><input type="text" class="form-control" name="designation[]" placeholder="Désignation" value="{{ $business_plan_chiffre_affaire->designation}}"></td>
-                                        <td><input type="text" class="form-control" name="unite[]" placeholder="Unité" value="{{ $business_plan_chiffre_affaire->unite}}"></td>
-                                        <td><input type="number" class="form-control" name="quantite[]" placeholder="Quantité" value="{{ $business_plan_chiffre_affaire->quantite}}"></td>
-                                        <td><input type="number" class="form-control" name="prix_unitaire[]" placeholder="PU" value="{{ $business_plan_chiffre_affaire->prix_unitaire}}"></td>
-                                        <td><input type="text" class="form-control" name="montant[]" disabled value="{{ $business_plan_chiffre_affaire->montant}}"></td>
-                                        <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeEmployeRow(this)"><i class="bi bi-trash"></i></button></td>
-                                    </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td><input type="text" class="form-control" name="designation[]" placeholder="Désignation"></td>
-                                        <td><input type="text" class="form-control" name="unite[]" placeholder="Unité"></td>
-                                        <td><input type="number" class="form-control" name="quantite[]" placeholder="Quantité"></td>
-                                        <td><input type="number" class="form-control" name="prix_unitaire[]" placeholder="PU"></td>
-                                        <td><input type="text" class="form-control" name="montant[]" disabled value="0"></td>
-                                        <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeEmployeRow(this)"><i class="bi bi-trash"></i></button></td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-secondary" onclick="addEstimationRow();">Ajouter une ligne</button>
-                        </div>
-                    </div>
-                </div>
+
                 <!-- Chiffre d’affaires de la première année -->
                 <div class="card mt-3">
                     <div class="card-header">
@@ -552,6 +507,56 @@
                         </table>
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-secondary" onclick="addEstimationFirstRow()">Ajouter une ligne</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estimation du chiffre d’affaires -->
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5 class="card-title">Estimation du chiffre d’affaires (<small class="fs-6">Sur les cinq premières années d’activités, les chiffres d’affaires sont progressives avec une évolution annuelle de 25%</small>)</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered" id="estimationTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Produits</th>
+                                    <th scope="col">AN 1</th>
+                                    <th scope="col">AN 2</th>
+                                    <th scope="col">AN 3</th>
+                                    <th scope="col">AN 4</th>
+                                    <th scope="col">AN 5</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(($business_plan->chiffre_affaires)->count()>0)
+                                    @foreach($business_plan->chiffre_affaires as $key => $business_plan_chiffre_affaire)
+                                    <tr>
+                                        <td><input type="text" class="form-control" name="produits[]" placeholder="Produit" value="{{ $business_plan_chiffre_affaire->produit}}"></td>
+                                        <td><input type="number" class="form-control" name="an_1[]" placeholder="Montant" value="{{ $business_plan_chiffre_affaire->an_1}}"></td>
+                                        <td><input type="number" class="form-control" name="an_2[]" placeholder="Montant" value="{{ $business_plan_chiffre_affaire->an_2}}"></td>
+                                        <td><input type="number" class="form-control" name="an_3[]" placeholder="Montant" value="{{ $business_plan_chiffre_affaire->an_3}}"></td>
+                                        <td><input type="number" class="form-control" name="an_4[]" placeholder="Montant"></td>
+                                        <td><input type="number" class="form-control" name="an_5[]" placeholder="Montant"></td>
+                                        <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeEmployeRow(this)"><i class="bi bi-trash"></i></button></td>
+                                    </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td><input type="text" class="form-control" name="produits[]" placeholder="Produit"></td>
+                                        <td><input type="number" class="form-control" name="an_1[]" placeholder="Montant"></td>
+                                        <td><input type="number" class="form-control" name="an_2[]" placeholder="Montant"></td>
+                                        <td><input type="number" class="form-control" name="an_3[]" placeholder="Montant"></td>
+                                        <td><input type="number" class="form-control" name="an_4[]" placeholder="Montant"></td>
+                                        <td><input type="number" class="form-control" name="an_5[]" placeholder="Montant"></td>
+                                        <td></td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary" onclick="addEstimationRow();">Ajouter une ligne</button>
                         </div>
                     </div>
                 </div>
