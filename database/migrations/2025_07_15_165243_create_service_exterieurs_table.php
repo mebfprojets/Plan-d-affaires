@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('service_exterieurs', function (Blueprint $table) {
+            $table->id();
+            $table->uuid('id_plan_affaire')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('unite')->nullable();
+            $table->double('quantite')->nullable();
+            $table->double('cout_unitaire')->nullable();
+            $table->double('cout_total')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('service_exterieurs');
+    }
+};

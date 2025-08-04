@@ -80,7 +80,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer">
-                © 2017 Admin Press Admin by themedesigner.in
+                © 2025 - MAISON DE L'ENTREPRISE DU BURKINA-FASO <a href="https://www.me.bf/" target="_blank">me.bf</a>
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -220,17 +220,28 @@
         }
 
         // GET PA
-        function getPA(id_plan_affaire){
+        function getPA(id_plan_affaire, type){
             $.ajax({
                 url: "{{ route('pa.get') }}",
                 type: 'GET',
                 data: {id_plan_affaire:id_plan_affaire},
                 error:function(){alert("Erreur");},
                 success: function (response) {
-                    $("#id_plan_affaire").val(response.id_plan_affaire);
-                    $("#imput-title").text(response.pack);
-                    $("#imput-idea").text(response.business_idea);
-                    $("#imput-object").text(response.business_object);
+                    if(type == 'imputer'){
+                        $("#id_plan_affaire").val(response.id_plan_affaire);
+                        $("#imput-title").text(response.pack);
+                        $("#imput-idea").text(response.business_idea);
+                        $("#imput-object").text(response.business_object);
+                        if(response.id_admin_imput){
+                            $("#motif_area").show();
+                        }
+                    }else{
+                        $("#id_plan_affaire_clos").val(response.id_plan_affaire);
+                        $("#imput-title_clos").text(response.pack);
+                        $("#imput-idea_clos").text(response.business_idea);
+                        $("#imput-object_clos").text(response.business_object);
+                    }
+
                 }
             });
         }
@@ -239,10 +250,11 @@
             const id_plan_affaire = $("#id_plan_affaire").val();
             const id_conseiller = $("#id_conseiller").val();
             const date_imput = $("#date_imput").val();
+            const motif_imput = $("#motif_imput").val();
             $.ajax({
                 url: "{{ route('imput.save') }}",
                 type: 'POST',
-                data: {"_token": "{{ csrf_token() }}", id_plan_affaire:id_plan_affaire, id_conseiller:id_conseiller, date_imput:date_imput
+                data: {"_token": "{{ csrf_token() }}", id_plan_affaire:id_plan_affaire, id_conseiller:id_conseiller, date_imput:date_imput, motif_imput:motif_imput
                 },
                 error:function(){swal("Erreur:", "Erreur lors de la suppresion", "error");},
                 success: function () {

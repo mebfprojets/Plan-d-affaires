@@ -1,5 +1,35 @@
 <div class="promo mt-3">
     <div class="row mb-3">
+        <label for="porteur" class="col-lg-3 col-form-label">Promoteur porteur?</label>
+        <div class="col-lg-8">
+            <input type="radio" id="porteur" name="porteur" value="{{ $nombre_promoteur+1 }}">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="nom_promoteur" class="col-lg-3 col-form-label">Nom promoteur</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" id="nom_promoteur" name="nom_promoteur[]" placeholder="Nom du promoteur">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="prenom_promoteur" class="col-lg-3 col-form-label">Prénom du promoteur</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" id="prenom_promoteur" name="prenom_promoteur[]" placeholder="Prénom du promoteur">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="tel_promoteur" class="col-lg-3 col-form-label">Téléphon du promoteur</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" id="tel_promoteur" name="tel_promoteur[]" placeholder="Téléphone du promoteur">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="email_promoteur" class="col-lg-3 col-form-label">Email promoteur</label>
+        <div class="col-lg-8">
+            <input type="text" class="form-control" id="email_promoteur" name="email_promoteur[]" placeholder="Email du promoteur">
+        </div>
+    </div>
+    <div class="row mb-3">
         <label for="age" class="col-lg-3 col-form-label">Âge</label>
         <div class="col-lg-8">
             <input type="number" class="form-control" id="age" name="age[]" placeholder="Entrez votre âge">
@@ -74,3 +104,4 @@
         </div>
     </div>
 </div>
+<hr>

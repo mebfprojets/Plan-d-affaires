@@ -427,7 +427,7 @@
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
 
-                <button type="submit">Envoyer</button>
+                <button type="submit" class="btn btn-success rounded submit px-3">Envoyer</button>
               </div>
 
             </div>

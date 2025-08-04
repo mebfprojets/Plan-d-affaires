@@ -9,7 +9,7 @@
         </div>
 
         <div class="col-lg-3 col-md-12 footer-newsletter">
-            <h4>SEFASI</h4>
+            <h4>SEFAFI</h4>
             <p>SERVICE DE FACILITATION DU FINANCEMENT DES ENTREPRISES</p>
             <div class="footer-contact pt-3">
                 <p>132 Avenue de Lyon</p>
@@ -38,15 +38,15 @@
               <p><strong>Site web/Email:</strong> <span> www.me.bf / info@me.bf</span></p>
             </div>
             <div class="social-links d-flex mt-4">
-              <a href=""><i class="bi bi-twitter-x"></i></a>
-              <a href=""><i class="bi bi-facebook"></i></a>
-              <a href=""><i class="bi bi-instagram"></i></a>
-              <a href=""><i class="bi bi-linkedin"></i></a>
+              <a href="https://web.facebook.com/ME.BurkinaFaso/?locale=fr_FR&_rdc=1&_rdr" target="_blank"><i class="bi bi-twitter"></i></a>
+              <a href="https://web.facebook.com/ME.BurkinaFaso/?locale=fr_FR&_rdc=1&_rdr" target="_blank"><i class="bi bi-facebook"></i></a>
+              <a href="https://web.facebook.com/ME.BurkinaFaso/?locale=fr_FR&_rdc=1&_rdr" target="_blank"><i class="bi bi-instagram"></i></a>
+              <a href="https://web.facebook.com/ME.BurkinaFaso/?locale=fr_FR&_rdc=1&_rdr" target="_blank"><i class="bi bi-linkedin"></i></a>
             </div>
           </div>
 
-        
-        
+
+
 
       </div>
     </div>

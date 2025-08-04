@@ -1,0 +1,172 @@
+body{
+    font-size: 12px !important;
+}
+
+
+.bg-body{
+    background-color: red;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.text-right{
+    text-align: right;
+}
+.text-center{
+    text-align: center;
+}
+
+.title{
+    text-align: center;
+}
+
+.sub-title{
+    margin-left: 10rem;
+    font-size: 1.6rem;
+}
+
+.head{
+    background: #CCC;
+}
+
+.table{
+    margin-top: 2rem;
+}
+
+.float-right{
+    float: right;
+}
+
+.pl-1{
+    padding-left: 0.5rem;
+}
+
+.title-header{
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.logo-univ{
+    height: 9rem;
+    width: 9rem;
+}
+
+.header {
+    width: 100%;
+    height: 20rem;
+}
+
+.header-title {
+    border: 1px solid #fff;
+}
+
+.logo-univ {
+    margin: 3rem 0 0 11rem;
+}
+
+.check {
+    width: 5rem;
+    height: 5rem;
+    border: 1px solid #000;
+    padding: 0.2rem 0.7rem;
+}
+
+.no-check {
+    width: 6rem;
+    height: 6rem;
+    border: 1px solid #000;
+    padding: 0.2rem 1rem;
+}
+
+.p-05 {
+    padding: 0.5rem;
+}
+
+.p-1 {
+    padding: 1rem;
+}
+
+.pt-1 {
+    padding-top: 1rem;
+}
+
+.pt-2 {
+    padding-top: 2rem;
+}
+
+.pt-3 {
+    padding-top: 3rem;
+}
+
+.pl-1 {
+    padding-left: 1rem;
+}
+
+.pl-2 {
+    padding-left: 2rem;
+}
+
+.pl-3 {
+    padding-left: 3rem;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.pb-1 {
+    padding-bottom: 1rem;
+}
+
+.pb-2 {
+    padding-bottom: 2rem;
+}
+
+.pb-3 {
+    padding-bottom: 3rem;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
+
+.mt-3 {
+    margin-top: 3rem;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.fs-1 {
+    font-size: 11px;
+}
+
+.mt-5,.my-5{margin-top:3rem!important}
+.mr-5,.mx-5{margin-right:3rem!important}
+.mb-5,.my-5{margin-bottom:3rem!important}.ml-5,.mx-5{margin-left:3rem!important}.p-0{padding:0!important}
+.pt-0,.py-0{padding-top:0!important}.pr-0,.px-0{padding-right:0!important}
+.pb-0,.py-0{padding-bottom:0!important}.pl-0,.px-0{padding-left:0!important}.p-1{padding:.25rem!important}
+.pt-1,.py-1{padding-top:.25rem!important}.pr-1,.px-1{padding-right:.25rem!important}
+.pb-1,.py-1{padding-bottom:.25rem!important}.pl-1,.px-1{padding-left:.25rem!important}
+.p-2{padding:.5rem!important}.pt-2,.py-2{padding-top:.5rem!important}
+.pr-2,.px-2{padding-right:.5rem!important}.pb-2,.py-2{padding-bottom:.5rem!important}
+.pl-2,.px-2{padding-left:.5rem!important}.p-3{padding:1rem!important}
+.pt-3,.py-3{padding-top:1rem!important}.pr-3,.px-3{padding-right:1rem!important}
+.pb-3,.py-3{padding-bottom:1rem!important}.pl-3,.px-3{padding-left:1rem!important}
+.p-4{padding:1.5rem!important}.pt-4,.py-4{padding-top:1.5rem!important}
+.pr-4,.px-4{padding-right:1.5rem!important}.pb-4,.py-4{padding-bottom:1.5rem!important}
+.pl-4,.px-4{padding-left:1.5rem!important}.p-5{padding:3rem!important}
+.pt-5,.py-5{padding-top:3rem!important}.pr-5,.px-5{padding-right:3rem!important}
+.pb-5,.py-5{padding-bottom:3rem!important}.pl-5,.px-5{padding-left:3rem!important}
+.m-auto{margin:auto!important}.mt-auto,.my-auto{margin-top:auto!important}
+.mr-auto,.mx-auto{margin-right:auto!important}.mb-auto,.my-auto{margin-bottom:auto!important}
+.ml-auto,.mx-auto{margin-left:auto!important}
+.pb-1,.py-1{padding-bottom:.25rem!important}.pl-1,.px-1{padding-left:.25rem!important}.p-2{padding:.5rem!important}.pt-2,.py-2{padding-top:.5rem!important}.pr-2,.px-2{padding-right:.5rem!important}.pb-2,.py-2{padding-bottom:.5rem!important}.pl-2,.px-2{padding-left:.5rem!important}.p-3{padding:1rem!important}.pt-3,.py-3{padding-top:1rem!important}.pr-3,.px-3{padding-right:1rem!important}.pb-3,.py-3{padding-bottom:1rem!important}.pl-3,.px-3{padding-left:1rem!important}.p-4{padding:1.5rem!important}.pt-4,.py-4{padding-top:1.5rem!important}.pr-4,.px-4{padding-right:1.5rem!important}.pb-4,.py-4{padding-bottom:1.5rem!important}.pl-4,.px-4{padding-left:1.5rem!important}.p-5{padding:3rem!important}.pt-5,.py-5{padding-top:3rem!important}.pr-5,.px-5{padding-right:3rem!important}.pb-5,.py-5{padding-bottom:3rem!important}.pl-5,.px-5{padding-left:3rem!important}.m-auto{margin:auto!important}
+.table{border-collapse:collapse!important}.table td,.table th{background-color:#fff!important}.table-bordered td,.table-bordered th{border:1px solid #ddd!important}
+.fw-bold{
+    font-weight: bold !important;
+}
+

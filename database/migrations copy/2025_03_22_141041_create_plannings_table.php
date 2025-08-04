@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('plannings', function (Blueprint $table) {
             $table->id();
-            $table->uuid('id_plan_affaire')->nullable();
+            $table->string('id_plan_affaire')->nullable();
             $table->string('step_activity')->nullable();
             $table->date('date_indicative')->nullable();
-            $table->foreign('id_plan_affaire')->references('id')->on('plan_affaires')->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
         });
     }

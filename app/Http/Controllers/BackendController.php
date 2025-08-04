@@ -13,6 +13,8 @@ use App\Models\Parametre;
 use App\Models\Valeur;
 use App\Models\Pack;
 use App\Models\PlanAffaire;
+use App\Models\Arrondissement;
+use App\Models\Structure;
 use \Exception;
 use Carbon\Carbon;
 
@@ -41,6 +43,7 @@ class BackendController extends Controller
         // $superadmin->givePermissionTo($permissions);
         // $admin = Admin::find(Auth::user()->id);
         // $admin->assignRole($superadmin);
+
         $plan_affaires = PlanAffaire::whereNull('deleted_at')->orderBy('created_at', 'DESC')->limit(5)->get();
 
         return view('backend.back', compact('plan_affaires'));
@@ -65,12 +68,11 @@ class BackendController extends Controller
 
         // Récupération des statistiques globales
         $results = DB::table('plan_affaires as pa')
-                                ->leftJoin('promoteurs as p', 'p.id_plan_affaire', '=', DB::raw('pa.id::uuid'))
+                                ->leftJoin('promoteurs as p', 'p.id_plan_affaire', '=', 'pa.id')
                                 ->join('packs as ps', 'ps.id', 'pa.id_pack')
                                 ->selectRaw('count(p.id) as total_prom, SUM(ps.cout_pack) as total_pay')
                                 ->groupBy('pa.id')
                                 ->get();
-
 
         $statistiques['total_prom'] = floatval(round($results->sum('total_prom') ?? 0));
         $statistiques['total_en'] = floatval(round($results->count() ?? 0));
@@ -79,7 +81,7 @@ class BackendController extends Controller
 
          // Récupération des statistiques status
         $result_s = DB::table('plan_affaires as pa')
-                                ->join('payements as p', 'p.id_plan_affaire', '=', DB::raw('pa.id::uuid'))
+                                ->join('payements as p', 'p.id_plan_affaire', '=', 'pa.id')
                                 ->selectRaw('count(p.id) as nombre_np')
                                 ->whereNull('pa.deleted_at')
                                 ->first();

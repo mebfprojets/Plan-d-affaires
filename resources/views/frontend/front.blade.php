@@ -1,32 +1,36 @@
 @extends('frontend.layouts.layout')
 @section('content')
+@section('accueil', 'active')
+
 <!-- Hero Section -->
 <section id="hero" class="hero section dark-background">
 
     <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
 
       <div class="carousel-item active">
+        <img src="{{ asset('/frontend/assets/img/bp/1.png') }}" alt="">
         <div class="carousel-container">
-          <h2>La maison de l'entreprise du Burkina-Faso<br></h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <h2>La Maison de l'Entreprise du Burkina-Faso (MEBF)<br></h2>
+          <p>Cette plateforme a été créée pour permettre aux projets de pouvoir leurs plans d'affaires.</p>
+          <a href="#services" class="btn-get-started">Initier un plan d'affaire</a>
         </div>
       </div><!-- End Carousel Item -->
 
       <div class="carousel-item">
-        <img src="{{ asset('/frontend/assets/img/hero-carousel/hero-carousel-2.jpg') }}" alt="">
+        <img src="{{ asset('/frontend/assets/img/bp/3.png') }}" alt="">
         <div class="carousel-container">
-          <h2>At vero eos et accusamus</h2>
-          <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut.</p>
-          <a href="#featured-services" class="btn-get-started">Get Started</a>
+          <h2>La Maison de l'Entreprise du Burkina-Faso (MEBF)<br></h2>
+          <p>Cette plateforme a été créée pour permettre aux projets de pouvoir leurs plans d'affaires.</p>
+          <a href="#services" class="btn-get-started">Initier un plan d'affaire</a>
         </div>
       </div><!-- End Carousel Item -->
 
       <div class="carousel-item">
-        <img src="{{ asset('/frontend/assets/img/hero-carousel/hero-carousel-3.jpg') }}" alt="">
+        <img src="{{ asset('/frontend/assets/img/bp/5.png') }}" alt="">
         <div class="carousel-container">
-          <h2>Temporibus autem quibusdam</h2>
-          <p>Beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt omnis iste natus error sit voluptatem accusantium.</p>
-          <a href="#featured-services" class="btn-get-started">Get Started</a>
+          <h2>La Maison de l'Entreprise du Burkina-Faso (MEBF)<br></h2>
+          <p>Cette plateforme a été créée pour permettre aux projets de pouvoir leurs plans d'affaires.</p>
+          <a href="#services" class="btn-get-started">Initier un plan d'affaire</a>
         </div>
       </div><!-- End Carousel Item -->
 
@@ -60,7 +64,7 @@
             <div class="service-item d-flex position-relative h-100" style="box-shadow: none; border: 0; background: linear-gradient(aliceblue, antiquewhite); border-radius: 50px 0 0 50px;">
                 <i class="bi bi-briefcase icon flex-shrink-0"></i>
                 <div>
-                    <h4 class="title"><a href="{{ route('packs.service', $pack_first->slug) }}" class="stretched-link">LE <span class="text-uppercase">{{ $pack_first->libelle }}</span></a></h4>
+                    <h4 class="title"><a href="#" class="stretched-link">LE <span class="text-uppercase">{{ $pack_first->libelle }}</span></a></h4>
                     <p class="description">{{ Str::limit($pack_first->description, 100) }}</p>
                 </div>
             </div>
@@ -207,12 +211,12 @@
     <div class="row gy-4">
 
       <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-          <ul>
-              <li><i class="bi bi-check2-circle"></i> <span>Créateurs d’entreprises ;</span></li>
-              <li><i class="bi bi-check2-circle"></i> <span>Petites et moyennes entreprises en développement;</span></li>
-              <li><i class="bi bi-check2-circle"></i> <span>Bénéficiaires des projets gérés par la MEBF;</span></li>
-              <li><i class="bi bi-check2-circle"></i> <span>Associations et groupements professionnels.</span></li>
-            </ul>
+        <ul>
+            <li><i class="bi bi-check2-circle"></i> <span>Créateurs d’entreprises ;</span></li>
+            <li><i class="bi bi-check2-circle"></i> <span>Petites et moyennes entreprises en développement;</span></li>
+            <li><i class="bi bi-check2-circle"></i> <span>Bénéficiaires des projets gérés par la MEBF;</span></li>
+            <li><i class="bi bi-check2-circle"></i> <span>Associations et groupements professionnels.</span></li>
+        </ul>
       </div>
       <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
         <img src="{{ asset('/frontend/assets/img/pa1.png') }}" alt="">
@@ -263,19 +267,20 @@
         </div>
 
         <div class="col-lg-8">
-          <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+          <form action="{{ route('contacts.store') }}" method="post">
+            {{ csrf_field() }}
             <div class="row gy-4">
 
               <div class="col-md-6">
-                <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                <input type="text" name="name" class="form-control" placeholder="Nom & Prénom" required="">
               </div>
 
               <div class="col-md-6 ">
-                <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                <input type="email" class="form-control" name="email" placeholder="Votre Email" required="">
               </div>
 
               <div class="col-md-12">
-                <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                <input type="text" class="form-control" name="subject" placeholder="Objet" required="">
               </div>
 
               <div class="col-md-12">
@@ -283,16 +288,15 @@
               </div>
 
               <div class="col-md-12">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                <button type="submit">Envoyer</button>
+                <button type="submit" class="btn btn-success rounded submit px-3">Envoyer</button>
               </div>
 
             </div>
           </form>
         </div><!-- End Contact Form -->
+      </div>
+    </div>
+</section>
 
 <!-- Clients Section -->
 <section id="clients" class="clients section light-background">

@@ -14,7 +14,7 @@
                 <li class="@yield('plans')"> <a class="@yield('plans')" href="{{ route('businessplans.index') }}"><i class="mdi mdi-book-open"></i>Plans d'affaire</a></li>
                 @endcan
                 @can('messages.send')
-                <li> <a href="{{ route('chat.index') }}"><i class="mdi mdi-email"></i>Messages</a></li>
+                <li> <a href="{{ url('message') }}"><i class="mdi mdi-email"></i>Messages</a></li>
                 @endcan
                 @can('promoteurs.view')
                 <li> <a href="{{ route('entreprises.index') }}"><i class="mdi mdi-account"></i>Entrepreneurs </a></li>
@@ -22,11 +22,16 @@
                 @can('entreprises.view')
                 <li> <a href="{{ route('promoteurs.index') }}"><i class="mdi mdi-group"></i>Promoteurs </a></li>
                 @endcan
+                @can('contacts.view')
+                <li> <a href="{{ route('contacts.index') }}"><i class="mdi mdi-message"></i>Contacts </a></li>
+                @endcan
                 @can('statistique.view')
                 <li> <a href="#"><i class="mdi mdi-database"></i>Visualisation </a></li>
                 @endcan
+                @can('roles.index')
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">ADMINISTRATION</li>
+                @endcan
                 @can('roles.index')
                 <li class="@yield('roles')"> <a class="@yield('roles')" href="{{ route('roles.index') }}"><i class="mdi mdi-marker-check"></i>Rôles</a></li>
                 @endcan

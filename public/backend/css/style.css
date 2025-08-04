@@ -8145,3 +8145,7 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::after {
 .fw-bold {
     font-weight: bold !important;
 }
+
+.text-black {
+  color: #000 !important;
+}

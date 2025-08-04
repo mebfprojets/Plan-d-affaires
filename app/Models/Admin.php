@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\HasPermissions;
+use Chatify\Traits\Messenger;
+use Chatify\Traits\Messagable;
 
 class Admin extends Authenticatable
 {
@@ -62,5 +64,10 @@ class Admin extends Authenticatable
     public function receivesBroadcastNotificationsOn(): string
     {
         return 'users.'.$this->id;
+    }
+
+    public function chatify()
+    {
+        return $this->morphOne(ChatifyUser::class, 'userable');
     }
 }

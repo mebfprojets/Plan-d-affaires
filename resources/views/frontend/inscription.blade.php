@@ -60,7 +60,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="business_idea" class="fw-bold">Idée de projet</label>
+                                <label for="business_idea" class="fw-bold">Idée de projet <span class="text-danger">*</span></label>
                                 <p>Dire comment est venue l’idée de projet et en quoi consiste le projet ?</p>
                                 <textarea name="business_idea" id="business_idea" rows="6" class="form-control"></textarea>
                             </div>

@@ -70,6 +70,16 @@
   <script src="{{ asset('/script.js') }}"></script>
   <script>
 
+    const inputs = document.querySelectorAll('input[type="text"]');
+    inputs.forEach(function (input) {
+        input.addEventListener('input', function () {
+            let value = this.value.replace(/\s/g, '');
+            if (!isNaN(value) && value !== '') {
+                this.value = Number(value).toLocaleString('fr-FR');
+            }
+        });
+    });
+
 
 
     // Sauvegarder les activités dans localStorage

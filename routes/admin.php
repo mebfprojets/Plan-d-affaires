@@ -12,10 +12,13 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PromoteurController;
 use App\Http\Controllers\EntrepriseController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Livewire\Chat\Index;
 use App\Livewire\Chat\Chat;
 use App\Livewire\Users;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\AdminSessionMiddleware;
 
 Route::prefix('admin')->middleware('guest:admin')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])->name('admin.register');
@@ -26,7 +29,11 @@ Route::prefix('admin')->middleware('guest:admin')->group(function () {
 
 });
 
-Route::prefix('admin')->middleware('auth:admin')->group(function () {
+
+Route::prefix('admin')->middleware([
+    AdminSessionMiddleware::class,
+    'auth:admin'
+])->group(function () {
     Route::get('/dashboard', [BackendController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/get-stat', [BackendController::class, 'getStat'])->name('data.stat');
     Route::resource('packs', PackController::class);
@@ -46,12 +53,19 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/business_plan/modele/{id_plan_affaire}', [BusinessPlanController::class, 'downloadBusinessPlan'])->name('businessplans.download');
     Route::get('/business_plan/show/{id_plan_affaire}', [BusinessPlanController::class, 'showBusinessPlan'])->name('businessplans.show');
     Route::get('/business_plan/edit/{id_plan_affaire}', [BusinessPlanController::class, 'editBusinessPlan'])->name('business_plans.edit');
+    Route::post('/business_plan/update/{id_plan_affaire}', [BusinessPlanController::class, 'updateBusinessPlan'])->name('business_plans.update');
     Route::get('/business_plan/valider/{id_plan_affaire}', [BusinessPlanController::class, 'validerBusinessPlan'])->name('businessplans.valider');
+    Route::get('/business_plan/print/{id_plan_affaire}', [BusinessPlanController::class, 'printBusinessPlan'])->name('businessplans.print');
+    Route::post('/business_plan/cloturer', [BusinessPlanController::class, 'cloturerBusinessPlan'])->name('businessplans.cloturer');
+    Route::get('/change-password', [PasswordController::class, 'changePassword'])->name('password.change');
+    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
     Route::get('/get/pa', [BusinessPlanController::class, 'getPa'])->name('pa.get');
     Route::post('/save/imput', [BusinessPlanController::class, 'saveImputation'])->name('imput.save');
     Route::get('/chat', Index::class)->name('chat.index');
     Route::get('/chat/{query}', Chat::class)->name('chat');
     Route::get('/users',Users::class)->name('users');
+    Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+    Route::get('/contacts/{id}', [ContactController::class, 'show'])->name('contacts.show');
     // Route::get('sessionformations/souscription', [SessionPlanController::class, 'souscription'])->name('sessionformation.souscription');
     Route::post('logout', [LoginController::class, 'destroy'])->name('admin.logout');
 });

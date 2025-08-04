@@ -53,7 +53,7 @@
                                     <td>{{ $valeur->created_at }}</td>
                                     <td>
                                         <a href="{{ route('valeurs.edit', $valeur->id) }}" class="btn-actions"><i class="fa fa-edit"></i></a>
-                                        <a href="{{ route('valeurs.edit', $valeur->id) }}" class="btn-actions btn-danger" style="color:#fff; border:0;"><i class="fa fa-trash"></i></a>
+                                        <button type="button" class="btn-actions btn-danger" style="color:#fff; border:0; cursor: pointer;" onclick="deleteLinge('{{ $valeur->id }}', 'valeur', 'Voulez-vous vraiment supprimer cette valeur?')"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach

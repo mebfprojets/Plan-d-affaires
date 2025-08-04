@@ -102,10 +102,10 @@
                             <thead>
                                 <tr>
                                     <th>Pack</th>
+                                    <th>Entreprise</th>
                                     <th>Idée du projet</th>
-                                    <th>Promoteur</th>
-                                    <th>Montant emprunt</th>
-                                    <th>Date création</th>
+                                    <th>Date soumission</th>
+                                    <th>Région</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -113,14 +113,14 @@
                                 @foreach ($plan_affaires as $plan_affaire)
                                 <tr>
                                     <td>{{ $plan_affaire->pack->libelle }}</td>
-                                    <td>{{ $plan_affaire->business_idea }}</td>
-                                    <td>{{ $plan_affaire->promoteurs->count() }}</td>
-                                    <td>{{ $plan_affaire->montant_emprunt }}</td>
+                                    <td>{{ $plan_affaire->entreprise?$plan_affaire->entreprise->denomination:'' }}</td>
+                                    <td style="white-space: pre-line;">{!! nl2br(e(Str::limit($plan_affaire->business_idea, 50))) !!}</td>
                                     <td>{{ $plan_affaire->created_at }}</td>
+                                    <td>{{ $plan_affaire->entreprise?($plan_affaire->entreprise->region?$plan_affaire->entreprise->region->libelle:''):'' }}</td>
                                     <td>
                                         @can('businessplans.editer')
-                                        <a href="{{ route('business_plans.edit', $plan_affaire->id) }}" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit"><i class="ti-marker-alt"></i></a>
-                                        <a href="{{ route('businessplans.show', $plan_affaire->id) }}" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete"><i class="ti-eye"></i></a>
+                                        <a href="{{ route('business_plans.edit', $plan_affaire->id) }}" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Modifier"><i class="ti-marker-alt"></i></a>
+                                        <a href="{{ route('businessplans.show', $plan_affaire->id) }}" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Voir détails"><i class="ti-eye"></i></a>
                                     </td>
                                         @endcan
                                 </tr>

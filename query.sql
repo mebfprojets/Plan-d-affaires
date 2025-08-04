@@ -33,3 +33,37 @@ insert into permissions(name, libelle, slug, guard_name) values('admin.monitorin
 
 /* LOGS */
 insert into permissions(name, libelle, slug, guard_name) values('admin.logs', 'Lister les logs', 'lister_les_logs', 'admin');
+
+
+
+
+insert into parametres(libelle) values('En matière de politique de prix');
+
+insert into valeurs(id_parametre, libelle) values(12, 'Prix de vente proposé (s)');
+insert into valeurs(id_parametre, libelle) values(12, 'Argumentaire de fixation');
+insert into valeurs(id_parametre, libelle) values(12, 'Stratégie de prix');	
+insert into valeurs(id_parametre, libelle) values(12, 'Adéquation avec le pouvoir d‘achat du client');	
+insert into valeurs(id_parametre, libelle) values(12, 'Méthode de facturation');	
+insert into valeurs(id_parametre, libelle) values(12, 'Durée des contrats');	
+insert into valeurs(id_parametre, libelle) values(12, 'Solvabilité des clients');	
+insert into valeurs(id_parametre, libelle) values(12, 'Solvabilité des partenaires');	
+
+insert into parametres(libelle) values('En matière de stratégie de communication');
+
+insert into valeurs(id_parametre, libelle) values(13, 'Supports de communication nécessaires');	
+insert into valeurs(id_parametre, libelle) values(13, 'Stratégie de promotion');	
+insert into valeurs(id_parametre, libelle) values(13, 'Budget publicitaire prévisionnel');
+insert into valeurs(id_parametre, libelle) values(13, 'Monitoring de la communication');	
+insert into valeurs(id_parametre, libelle) values(13, 'Stratégie de promotion');	
+
+insert into parametres(libelle) values('En matière de stratégie de distribution');
+
+insert into valeurs(id_parametre, libelle) values(14, 'Politique de vente');	
+insert into valeurs(id_parametre, libelle) values(14, 'Méthode d‘organisation du réseau de vente');	
+insert into valeurs(id_parametre, libelle) values(14, 'Relations avec le réseau');	
+insert into valeurs(id_parametre, libelle) values(14, 'Localisation des distributeurs');	
+insert into valeurs(id_parametre, libelle) values(14, 'Techniques de stimulation des prescripteurs');	
+insert into valeurs(id_parametre, libelle) values(14, 'Stratégie de croissance');
+
+insert into parametres(libelle) values('Stratégie marketing');
+

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Parametre;
+use App\Models\ChareExploitation;
 // use App\Traits\TracksUserActions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -113,5 +114,15 @@ class Valeur extends Model
     public function user_deleted()
     {
         return $this->belongsTo(User::class, 'id_user_deleted');
+    }
+
+    /**
+     * User who deleted the valeur.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function charge_exploitations()
+    {
+        return $this->hasMany(ChareExploitation::class, 'id_valeur');
     }
 }

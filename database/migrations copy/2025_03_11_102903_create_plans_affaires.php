@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('plans_affaires', function (Blueprint $table) {
-            $table->uuid()->primary();
+        Schema::create('plan_affaires', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->integer('id_pack');
+            $table->integer('id_user');
             $table->text('business_idea')->nullable();
             $table->text('business_object')->nullable();
-            $table->foreign('id_user_created')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
-            $table->foreign('id_user_updated')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
-            $table->foreign('id_user_deleted')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

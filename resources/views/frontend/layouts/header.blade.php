@@ -8,11 +8,14 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero">Qui sommes nous?</a></li>
-          <li><a href="{{ route('frontend.menu', 'comment-postuler') }}" class="@yield('postuler')">Comment postuler?</a></li>
-          <li><a href="about.html">Besoin de conseils?</a></li>
-          <li><a href="services.html">Nos Formations</a></li>
-          <li><a href="{{ route('frontend.menu', 'nos-packs') }}" class="@yield('packs')">Nos packs</a></li>
+          <li><a href="{{ route('frontend.home') }}" class="@yield('accueil')">Accueil</a></li>
+          <li><a href="{{ route('frontend.menu', 'a-propos') }}" class="@yield('a-propos')">A propos</a></li>
+          <li><a href="{{ route('frontend.menu', 'nos-packs') }}" class="@yield('nos-packs')">Pas de paquet</a></li>
+          <li><a href="{{ route('frontend.menu', 'elaborer-pa') }}" class="@yield('elaborer-pa')">Élaborer mon PA </a></li>
+          <li><a href="{{ route('frontend.menu', 'nous-contacter') }}" class="@yield('nous-contacter')">Nous contacter</a></li>
+          @if(Auth::check())
+          <li><a href="{{ route('profile.edit') }}" class="@yield('projets')">Mes plans d'affaires </a></li>
+          @endif
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -38,8 +41,8 @@
                     <p class="mb-0">{{ Auth::user()->name }}</p>
                 </li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profil</a></li>
-                <li><a class="dropdown-item" href="#">Paramètres</a></li>
+                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Mes plans d'affaires</a></li>
+                <li><a class="dropdown-item" href="{{ route('password.changes') }}">Changement de mot de passe</a></li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
@@ -49,6 +52,5 @@
             </ul>
         </div>
       @endif
-
     </div>
   </header>

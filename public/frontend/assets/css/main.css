@@ -1913,7 +1913,7 @@ section,
 }
 
 .blog-posts .content .read-more a:hover {
-  background: color-mix(in srgb, var(--accent-color), transparent 20%);
+  background: color-mix(in srgb, #168331, transparent 95%);
 }
 
 /*--------------------------------------------------------------
@@ -1955,6 +1955,10 @@ section,
   color: var(--contrast-color);
 }
 
+.fs-6{
+    font-size: 3rem;
+}
+
 /*--------------------------------------------------------------
 # Blog Details Section
 --------------------------------------------------------------*/
@@ -1993,8 +1997,8 @@ section,
 
 .blog-details .content blockquote {
   overflow: hidden;
-  background-color: color-mix(in srgb, var(--default-color), transparent 95%);
-  padding: 60px;
+  background-color: color-mix(in srgb, #168331, transparent 95%);
+  padding:  20px;
   position: relative;
   text-align: center;
   margin: 20px 0;
@@ -2017,8 +2021,8 @@ section,
   bottom: 0;
   width: 3px;
   background-color: #168331;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  /*margin-top: 20px;
+  margin-bottom: 20px;*/
 }
 
 .blog-details .meta-top {
@@ -2600,4 +2604,79 @@ section,
     border: 1px solid #ddd;
     padding: 1rem;
     border-radius: 4px;
+}
+
+.label {
+  display: inline-block;
+}
+.label-info {
+  background-color: #1976d2;
+}
+.label {
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+  text-transform: uppercase;
+}
+
+.label-success {
+  background-color: #26dad2;
+}
+
+.label-primary {
+  background-color: #5c4ac7;
+}
+
+.label-danger {
+  background-color: #ef5350;
+}
+
+.label-warning {
+  background-color: #ffb22b;
+}
+
+.arrow-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.arrow-list li {
+  position: relative;
+  background: #F2F2F2;
+  color: white !important;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  font-weight: bold;
+  transition: background 0.3s;
+  margin-right: 1.2rem;
+}
+
+.arrow-list li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.arrow-list li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -20px;
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 20px solid #F2F2F2;
+}
+
+.tab-title {
+  background: #f2f4f6;
+  padding: 0.5rem;
+  color: #020202;
+  text-transform: uppercase;
+  font-weight: 500;
 }

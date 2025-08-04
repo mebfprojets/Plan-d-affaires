@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\PlanAffaire;
+use App\Models\ChatifyUser;
+use Chatify\Traits\HasMessage;
 
 class User extends Authenticatable
 {
@@ -66,5 +68,10 @@ class User extends Authenticatable
     public function nombrePA()
     {
         return $this->belongsTo(PlanAffaire::class, 'id_user');
+    }
+
+    public function chatify()
+    {
+        return $this->morphOne(ChatifyUser::class, 'userable');
     }
 }
