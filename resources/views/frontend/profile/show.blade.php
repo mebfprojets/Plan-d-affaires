@@ -72,9 +72,9 @@
                             @if(!$plan_affaire->date_valide)
                             <a href="#" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash3"></i></a>
                             @endif
-                            @if($plan_affaire->statut == env('cloture'))
+
                             <a href="#" download="{{ asset($plan_affaire->url_file) }}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-download"></i></a>
-                            @endif
+
                             <a href="{{ route('businessplans.details', $plan_affaire->id) }}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-eye-fill"></i></a>
                         </td>
                     </tr>

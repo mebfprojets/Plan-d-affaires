@@ -47,7 +47,7 @@
                                 <tr>
                                     <td>{{ $promoteur->id }}</td>
                                     <td>{{ $promoteur->entreprise->denomination }}</td>
-                                    <td>{{ $promoteur->sexe->libelle }}</td>
+                                    <td>{{ $promoteur->sexe?$promoteur->sexe->libelle:'' }}</td>
                                     <td>{{ $promoteur->age }}</td>
                                     <td>{{ $promoteur->domicile }}</td>
                                     <td>{{ $promoteur->adresse }}</td>

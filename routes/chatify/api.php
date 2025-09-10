@@ -72,4 +72,6 @@ Route::post('/updateSettings', 'MessagesController@updateSettings')->name('api.a
  */
 Route::post('/setActiveStatus', 'MessagesController@setActiveStatus')->name('api.activeStatus.set');
 
+Route::post('/business_plan/{id_plan_affaire}/callback', [BusinessPlanController::class, 'callbackPaye'])->name('callback.payer');
+
 

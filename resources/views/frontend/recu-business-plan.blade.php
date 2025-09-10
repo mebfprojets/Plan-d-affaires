@@ -56,7 +56,7 @@
 
                     <div class="p-3 mt-5" style="border: 1px solid #ddd;">
                         <h5 class="fw-bold" style="text-transform: uppercase; font-size: 0.8rem;">Pour les formalités suivantes</h5>
-                        <p><small><i>Elaboration de plan d'affaire pour le promoteur <strong>{{ $promoteur->nom_promoteur.' '.$promoteur->prenom_promoteur }}</strong></i></small></p>
+                        <p><small><i>Elaboration de plan d'affaire pour le promoteur <strong>{{ $promoteur?($promoteur->nom_promoteur.' '.$promoteur->prenom_promoteur):'' }}</strong></i></small></p>
                     </div>
                 </div>
             </div>

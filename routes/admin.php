@@ -46,10 +46,10 @@ Route::prefix('admin')->middleware([
     Route::resource('promoteurs', PromoteurController::class);
     Route::resource('entreprises', EntrepriseController::class);
     Route::post('delete/ligne', [BackendController::class, 'deleteLigne'])->name('delete.ligne');
-    Route::resource('sessionformations', SessionPlanController::class);
-    Route::get('souscription', [SessionPlanController::class, 'souscription'])->name('sessionformation.souscription');
-    Route::get('souscription/{id_session_client}', [SessionPlanController::class, 'showSouscription'])->name('souscription.show');
-    Route::post('souscription/valider', [SessionPlanController::class, 'validerSouscription'])->name('souscription.valider');
+    // Route::resource('sessionformations', SessionPlanController::class);
+    // Route::get('souscription', [SessionPlanController::class, 'souscription'])->name('sessionformation.souscription');
+    // Route::get('souscription/{id_session_client}', [SessionPlanController::class, 'showSouscription'])->name('souscription.show');
+    // Route::post('souscription/valider', [SessionPlanController::class, 'validerSouscription'])->name('souscription.valider');
     Route::get('/business_plan/modele/{id_plan_affaire}', [BusinessPlanController::class, 'downloadBusinessPlan'])->name('businessplans.download');
     Route::get('/business_plan/show/{id_plan_affaire}', [BusinessPlanController::class, 'showBusinessPlan'])->name('businessplans.show');
     Route::get('/business_plan/edit/{id_plan_affaire}', [BusinessPlanController::class, 'editBusinessPlan'])->name('business_plans.edit');

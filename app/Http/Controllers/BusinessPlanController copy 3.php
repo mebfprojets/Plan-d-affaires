@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Models\Admin;
 use App\Models\PlanAffaire;
 use App\Models\Planning;
@@ -30,8 +29,6 @@ use App\Models\CompteExploitationYear;
 use App\Models\CritereProduit;
 use App\Models\StrategieMarketing;
 use App\Models\TransactionSuccesses;
-use App\Models\TransactionCallback;
-use App\Models\CustomDatas;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -1715,17 +1712,15 @@ class BusinessPlanController extends Controller
 
         $success_url = route('success.payer', $id_plan_affaire);
         $cancel_url = route('cancel.payer', $id_plan_affaire);
-        $callback_url = "https://3b55f1ade8d3.ngrok-free.app/api/business_plan/".$id_plan_affaire."/callback"; //"https://monbusinessplan.me.bf/api/business_plan/".$id_plan_affaire."/callback"; // route('callback.payer', $id_plan_affaire); // "https://e9817093d1d6.ngrok-free.app/api/business_plan/b964177d-530e-4954-9c99-a7d86e2f8ae8/callback"; // route('callback.payer', $id_plan_affaire);
+        $callback_url = "https://5531903ae3e8.ngrok-free.app/api/business_plan/b964177d-530e-4954-9c99-a7d86e2f8ae8/callback"; // route('callback.payer', $id_plan_affaire);
 
-        $order_id = 'ORD-' . str_pad((string) random_int(0, 9999999999), 10, '0', STR_PAD_LEFT);
-        $customer_id = 'CUST-' . str_pad((string) random_int(0, 9999999999), 10, '0', STR_PAD_LEFT);
         $response = $invoice->payWithRedirection([
             "return_url" => $success_url,
             "cancel_url" => $cancel_url,
             "callback_url" => $callback_url,
             "custom_data" => [
-                "order_id" => $order_id,
-                "customer_id" => $customer_id
+                "order_id" => "ORD-1234567890",
+                "customer_id" => "CUST-1234567890"
             ]
         ]);
         $business_plan = PlanAffaire::find($id_plan_affaire);
@@ -1759,43 +1754,41 @@ class BusinessPlanController extends Controller
      */
     public function successPaye(Request $request, $id_plan_affaire)
     {
-        $business_plan = PlanAffaire::find($id_plan_affaire);
         // Get response
         $response = $this->getResponse($id_plan_affaire);
 
         // Convert to json
-        $data_success = $response->json();
+        $data = $response->json();
 
         // Verify if success
-        if($data_success['response_code'] == '00'){
+        if($data['response_code'] == '00'){
             try {
-            // $customer = $data_success['customer_details'];
-            $transaction_success =
+            $customer = $data['customer_details'];
             $transaction = TransactionSuccesses::updateOrCreate(
                 [
                     'id_plan_affaire' => $id_plan_affaire, // Critère de recherche
                 ],
                 [
-                    'response_code'=>$data_success['response_code'],
-                    'token'=>$data_success['token'],
-                    'response_text'=>$data_success['response_text'],
-                    'description'=>$data_success['description'],
-                    'status'=>$data_success['status'],
-                    'operator_id'=>$data_success['operator_id'],
-                    'operator_name'=>$data_success['operator_name'],
-                    'customer'=>$data_success['customer'],
-                    'wiki'=>$data_success['wiki'],
-                    'montant'=>$data_success['montant'],
-                    'amount'=>$data_success['amount'],
-                    'date'=>Carbon::parse($data_success['date'])->format('Y-m-d H:i:s'),
-                    'external_id'=>$data_success['external_id'],
-                    'oreference'=>$data_success['oreference'],
-                    'customer_firstname'=>$data_success['customer_details']['firstname'],
-                    'customer_lastname'=>$data_success['customer_details']['lastname'],
-                    'customer_email'=>$data_success['customer_details']['email'],
-                    'customer_phone'=>$data_success['customer_details']['phone'],
-                    'customer_details'=>$data_success['customer_details']['details'],
-                    'request_id'=>$data_success['request_id'],
+                    'response_code'=>$data['response_code'],
+                    'token'=>$data['token'],
+                    'response_text'=>$data['response_text'],
+                    'description'=>$data['description'],
+                    'status'=>$data['status'],
+                    'operator_id'=>$data['operator_id'],
+                    'operator_name'=>$data['operator_name'],
+                    'customer'=>$data['customer'],
+                    'wiki'=>$data['wiki'],
+                    'montant'=>$data['montant'],
+                    'amount'=>$data['amount'],
+                    'date'=>$data['date'],
+                    'external_id'=>$data['external_id'],
+                    'oreference'=>$data['oreference'],
+                    'custom_firstname'=>$data['customer_details']['firstname'],
+                    'custom_lastname'=>$data['customer_details']['lastname'],
+                    'custom_email'=>$data['customer_details']['email'],
+                    'custom_phone'=>$data['customer_details']['phone'],
+                    'custom_details'=>$data['customer_details']['details'],
+                    'request_id'=>$data['request_id'],
                 ]
             );
 
@@ -1804,24 +1797,14 @@ class BusinessPlanController extends Controller
                 'statut' => env('paye'),
             ]);
 
-            foreach($data_success['custom_data'] as $custom_data){
-                CustomDatas::updateOrCreate([
-                        'transaction_id'=>$transaction->id,
-                        'keyof_customdata'=>$custom_data['keyof_customdata'],
-                        'valueof_customdata'=>$custom_data['valueof_customdata'],
-                        'datecreation_customdata'=>$custom_data['datecreation_customdata'],
-                        'url'=>'success',
-                    ]);
-            }
-
             return redirect()->route('businessplans.recu', $id_plan_affaire)->with('success', 'Paiement effectué avec succès!');
         } catch (\Exception $ex) {
-            Log::error('Erreur lorsssss de lors du paiement: '.$ex->getMessage());
+            Log::error('Erreur lors de lors du paiement: '.$ex->getMessage());
 
         }
         }
 
-        return redirect()->route('profile.edit')->with('error', 'Erreur lorssssssssssssss du paiement!');
+        return redirect()->route('profile.edit')->with('error', 'Erreur lors du paiement!');
     }
 
     /**
@@ -1837,55 +1820,61 @@ class BusinessPlanController extends Controller
      */
     public function callbackPaye(Request $request, $id_plan_affaire)
     {
+        if (str_starts_with($request->header('Content-Type'), 'application/json')) {
+            // Récupérer le payload brut (string JSON tel qu'envoyé)
+            $event = $request->getContent();
+
+            // Créer la transaction
+            $entreprise = Transaction::create([
+                'id_plan_affaire'  => $id_plan_affaire,
+                'client_phone'     => null,  // tu pourras parser plus tard si besoin
+                'client_firstname' => null,
+                'client_lastname'  => null,
+                'email'            => null,
+                'montant'          => null,
+                'json'             => $event,  // ici on garde le JSON en string
+                'response'         => 'callback ' . $request->header('Content-Type'),
+            ]);
+        }
+
         try {
-            if (str_starts_with($request->header('Content-Type'), 'application/json')) {
-                // Get response
-                $response = $request->getContent();
+            $payload = $request->getContent();
+            $event = json_decode($payload);
+            // Log::channel('callback')->info($event);
 
-                // Convert to json
-                $data_callback = json_decode($response);
+            $token = $event->token;
+            $transaction_id = $event->transaction_id;
+            $status = $event->status;
 
-                $transaction = TransactionCallback::updateOrCreate(
-                    [
+            $transaction = Transaction::where('id_plan_affaire', $id_plan_affaire)->first(); // Ou avec le transaction
+            if($transaction){
+                $transaction->update([
+                    'status'=>$status,
+                    'callback'=>$event,
+                    'response'=>'callback',
+                ]);
+            }else{
+                $entreprise = Transaction::create([
                     'id_plan_affaire' => $id_plan_affaire, // Critère de recherche
-                    ],
-                    [
-                    "line"=>$data_callback->line,
-                    "date"=>Carbon::parse($data_callback->date)->format('Y-m-d H:i:s'),
-                    "headers"=>json_encode($data_callback->headers),
-                    "method"=>$data_callback->method,
-                    "url_method"=>$data_callback->url_method,
-                    "response_code"=>$data_callback->response_code,
-                    "token"=>$data_callback->token,
-                    "montant"=>$data_callback->montant,
-                    "amount"=>$data_callback->amount,
-                    "response_text"=>$data_callback->response_text,
-                    "status"=>$data_callback->status,
-                    "request_id"=>$data_callback->request_id,
-                    "operator_name"=>$data_callback->operator_name,
-                    "url"=>$data_callback->url,
-                    "transaction_id"=>$data_callback->transaction_id,
-                    "external_id"=>$data_callback->external_id,
-                    "oreference"=>$data_callback->oreference,
-                    "customer_firstname"=>$data_callback->customer->firstname,
-                    "customer_lastname"=>$data_callback->customer->lastname,
-                    "customer_email"=>$data_callback->customer->email,
-                    "customer_phone"=>$data_callback->customer->phone,
-                    "customer_details"=>$data_callback->customer->details,
-                    "hash"=>$data_callback->hash,
-                ]);
-
-            foreach($data_callback->custom_data as $custom_data){
-                CustomDatas::updateOrCreate([
-                    'transaction_id'=>$transaction->id,
-                    'keyof_customdata'=>$custom_data->keyof_customdata,
-                    'valueof_customdata'=>$custom_data->valueof_customdata,
-                    'datecreation_customdata'=>$custom_data->datecreation_customdata,
-                    'url'=>'callback',
+                    'client_phone'=>'phone',
+                    'client_firstname'=>'firstname',
+                    'client_lastname'=>'lastname',
+                    'email'=>'email',
+                    'montant'=>'montant',
+                    'json'=>'ljnjn',
+                    'response'=>'callback',
                 ]);
             }
-            }
-
+            $entreprise = Transaction::create([
+                    'id_plan_affaire' => $id_plan_affaire, // Critère de recherche
+                    'client_phone'=>'phone',
+                    'client_firstname'=>'firstname',
+                    'client_lastname'=>'lastname',
+                    'email'=>'email',
+                    'montant'=>'montant',
+                    'json'=>'ljnjn',
+                    'response'=>'callback',
+                ]);
         } catch (Exception $ex) {
             Log::channel('callback')->info($ex);
         }

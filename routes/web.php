@@ -7,6 +7,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Livewire\Chat\Index;
 use App\Livewire\Chat\Chat;
@@ -14,7 +16,7 @@ use App\Livewire\Users;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\UserSessionMiddleware;
 
-
+Route::post('/business_plan/{id_plan_affaire}/callback', [BusinessPlanController::class, 'callbackPaye'])->name('callback.payer');
 Route::get('/selection', [FrontendController::class, 'selection'])->name('root.selection');
 Route::get('/banque', [FrontendController::class, 'banque'])->name('root.banque');
 Route::get('/', [FrontendController::class, 'home'])->name('frontend.home');
@@ -66,7 +68,7 @@ Route::middleware([UserSessionMiddleware::class,
     Route::get('/pa/edit/{id_plan_affaire}', [BusinessPlanController::class, 'editBusinessPlan'])->name('businessplans.edit');
     Route::get('/business_plan/{id_plan_affaire}/success', [BusinessPlanController::class, 'successPaye'])->name('success.payer');
     Route::get('/business_plan/{id_plan_affaire}/cancel', [BusinessPlanController::class, 'cancelPaye'])->name('cancel.payer');
-    Route::get('/business_plan/{id_plan_affaire}/callback', [BusinessPlanController::class, 'callbackPaye'])->name('callback.payer');
+
     Route::get('/business_plan/details/{id_plan_affaire}', [BusinessPlanController::class, 'detailsBusinessPlan'])->name('businessplans.details');
     Route::get('/business_plan/recu/{id_plan_affaire}', [BusinessPlanController::class, 'recuBusinessPlan'])->name('businessplans.recu');
     Route::get('/add/promoteur', [BusinessPlanController::class, 'addLignePromoteur'])->name('promoteur.add-ligne');
