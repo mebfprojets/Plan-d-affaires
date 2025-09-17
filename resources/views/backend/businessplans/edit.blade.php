@@ -496,20 +496,128 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Compte d'exploitation -->
+                            <input type="hidden" name="first_year" value="{{ $year }}">
+                            <label for="compte_exploitation" class="col-lg-3 col-form-label" style="font-weight: bold; text-transform: uppercase;">Compte d’exploitation</label>
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered" id="banqueTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Désignation</th>
+                                        <th scope="col">{{ $year-2 }}</th>
+                                        <th scope="col">{{ $year-1 }}</th>
+                                        <th scope="col">{{ $year }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="banque_area">
+                                    @foreach($compteExploitations as $key => $compte_exploitation)
+                                    <tr>
+                                        <td><span> {{ $compte_exploitation->libelle}} </span><input type="hidden" name="valeur[]" value="{{ $compte_exploitation->id }}"></td>
+                                        <td><input type="text" class="form-control" name="montant_first[]" placeholder="100000" value="{{ number_format($compte_exploitation->first_year, 0, ',', ' ') }}"></td>
+                                        <td><input type="text" class="form-control" name="montant_second[]" value="{{ number_format($compte_exploitation->second_year, 0, ',', ' ') }}"></td>
+                                        <td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="100000" value="{{ number_format($compte_exploitation->third_year, 0, ',', ' ') }}"></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            </div>
+                            <label for="compte_exploitation" class="col-lg-3 col-form-label" style="font-weight: bold; text-transform: uppercase;">Bilan en grande masses</label>
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered" id="banqueTable">
+
+                                <tbody id="banque_area">
+                                    <tr>
+                                        <th scope="col">ACTIF </th>
+                                        <th scope="col">{{ $year-2 }}</th>
+                                        <th scope="col">{{ $year-1 }}</th>
+                                        <th scope="col">{{ $year }}</th>
+                                    </tr>
+                                    @foreach($bilanMasseActifs as $key => $bilanMasseActif)
+                                    <tr>
+                                        <td><span> {{ $bilanMasseActif->libelle}} </span><input type="hidden" name="valeur_actif[]" value="{{ $bilanMasseActif->id }}"></td>
+                                        <td><input type="text" class="form-control" name="montant_first_actif[]" placeholder="100000" value="{{ number_format($bilanMasseActif->first_year, 0, ',', ' ') }}"></td>
+                                        <td><input type="text" class="form-control" name="montant_second_actif[]" value="{{ number_format($bilanMasseActif->second_year, 0, ',', ' ') }}"></td>
+                                        <td><input type="text" min="0" class="form-control" name="montant_third_actif[]" placeholder="100000" value="{{ number_format($bilanMasseActif->third_year, 0, ',', ' ') }}"></td>
+                                    </tr>
+                                    @endforeach
+                                    <tr>
+                                        <th scope="col">TOTAL GÉNÉRAL </th>
+                                        <th scope="col">{{ number_format($bilanMasseActifs->sum('first_year'), 0, ',', ' ') }}</th>
+                                        <th scope="col">{{ number_format($bilanMasseActifs->sum('second_year'), 0, ',', ' ') }}</th>
+                                        <th scope="col">{{ number_format($bilanMasseActifs->sum('third_year'), 0, ',', ' ') }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">PASSIF </th>
+                                        <th scope="col">{{ $year-2 }}</th>
+                                        <th scope="col">{{ $year-1 }}</th>
+                                        <th scope="col">{{ $year }}</th>
+                                    </tr>
+                                    @foreach($bilanMassePacifs as $key => $bilanMassePacif)
+                                    <tr>
+                                        <td><span> {{ $bilanMassePacif->libelle}} </span><input type="hidden" name="valeur_pacif[]" value="{{ $bilanMassePacif->id }}"></td>
+                                        <td><input type="text" class="form-control" name="montant_first_pacif[]" placeholder="100000" value="{{ number_format($bilanMassePacif->first_year, 0, ',', ' ') }}"></td>
+                                        <td><input type="text" class="form-control" name="montant_second_pacif[]" value="{{ number_format($bilanMassePacif->second_year, 0, ',', ' ') }}"></td>
+                                        <td><input type="text" min="0" class="form-control" name="montant_third_pacif[]" placeholder="100000" value="{{ number_format($bilanMassePacif->third_year, 0, ',', ' ') }}"></td>
+                                    </tr>
+                                    @endforeach
+                                    <tr>
+                                        <th scope="col">TOTAL GÉNÉRAL </th>
+                                        <th scope="col">{{ number_format($bilanMassePacifs->sum('first_year'), 0, ',', ' ') }}</th>
+                                        <th scope="col">{{ number_format($bilanMassePacifs->sum('second_year'), 0, ',', ' ') }}</th>
+                                        <th scope="col">{{ number_format($bilanMassePacifs->sum('third_year'), 0, ',', ' ') }}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
                         </div>
                         <div class="tab-pane p-20" id="commercial" role="tabpanel">
                             <h5>Dossier commercial</h5>
                             <!-- Produits/Services -->
                             <div class="card my-4">
-                                <div class="card-header bg-secondary">
-                                    <h5 class="text-white">Produits/Services</h5>
+                                <div class="card-header bg-secondary text-white">
+                                    Produits/Services
                                 </div>
                                 <div class="card-body">
-                                    <div class="row mb-3">
-                                        <label for="produits_services" class="col-lg-3 col-form-label">Description détaillée</label>
-                                        <div class="col-lg-9">
-                                            <textarea class="form-control" id="produits_services" name="produits_services" rows="3" placeholder="Qualité, poids, durabilité, etc.">{{ $business_plan->produit_service }}</textarea>
-                                        </div>
+                                    <div class="table-responsive">
+                                        @if(($business_plan->chiffre_affaire_first_years)->count()>0)
+                                        <table class="table table-bordered">
+                                        @foreach($business_plan->chiffre_affaire_first_years as $key => $business_plan_produit)
+
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" colspan="2">{{ $business_plan_produit->produit }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td style="width: 27%">Critères</td><td>Description</td></tr>
+                                            @foreach ($criteres as $key=>$critere)
+                                                <?php
+                                                    $id_produit = $business_plan_produit->id;
+                                                    $id_valeur = $critere->id;
+                                                    $criterep = $business_plan->critere_produits->filter(function ($critere_p) use($id_produit, $id_valeur) {
+                                                        return (($critere_p->id_produit == $id_produit) !== false && ($critere_p->id_valeur == $id_valeur) !== false);
+                                                    })->first();
+
+                                                ?>
+                                                <tr>
+                                                    <td>{{ $key+1 }}-  {{ $critere->libelle }}<input type="hidden" name="critere_valeur[]" value="{{ $critere->id }}"><input type="hidden" name="critere_produit[]" value="{{ $business_plan_produit->id }}"></td>
+                                                    <td><input type="text" min="0" class="form-control" name="critere_description[]" placeholder="Description" value="{{ $criterep?$criterep->description:'' }}"></td>
+                                                </tr>
+                                            @endforeach
+
+                                            <!--<tr><td>2- Inconvénients </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
+                                            <tr><td>3- Les facteurs déterminants de la vente </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
+                                            <tr><td>4- La valeur ajoutée </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
+                                            <tr><td>5- Les garanties clientèles </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
+                                        </tbody>-->
+                                        @endforeach
+                                    </table>
+                                    @else
+                                    <span class="alert alert-warning">Aucun produit du chiffre d'affaire de la première année n'est encore!</span>
+                                    @endif
                                     </div>
                                 </div>
                             </div>
@@ -579,32 +687,50 @@
 
                             <!-- Stratégie marketing -->
                             <div class="card my-4">
-                                <div class="card-header bg-secondary">
-                                    <h5 class="text-white">Stratégie marketing</h5>
+                                <div class="card-header bg-secondary text-white">
+                                    Stratégie marketing
                                 </div>
                                 <div class="card-body">
+                                    <div class="table-responsive">
+                                        @if(($groupedStrategieMarketings)->count()>0)
+                                        <table class="table table-bordered">
+                                        @foreach ($groupedStrategieMarketings as $parametre_id => $valeurs)
+
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" colspan="2">{{ $valeurs->first()->libelle_parametre }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($valeurs as $key=>$valeur)
+                                                <?php
+                                                    $id_valeur = $valeur->id_valeur;
+                                                    $sm = $business_plan->strategie_marketings->filter(function ($sm) use($id_produit, $id_valeur) {
+                                                        return ($sm->id_valeur == $id_valeur) !== false ;
+                                                    })->first();
+
+                                                    // dd($criterep->id);
+                                                ?>
+                                                <tr>
+                                                    <td style="width: 27%">{{ $key+1 }}-  {{ $valeur->libelle_valeur }}<input type="hidden" name="valeur_sm[]" value="{{ $valeur->id_valeur }}"></td>
+                                                    <td><input type="text" min="0" class="form-control" name="libelle_sm[]" placeholder="Description" value="{{ $sm?$sm->libelle_sm:'' }}"></td>
+                                                </tr>
+                                            @endforeach
+
+                                            <!--<tr><td>2- Inconvénients </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
+                                            <tr><td>3- Les facteurs déterminants de la vente </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
+                                            <tr><td>4- La valeur ajoutée </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
+                                            <tr><td>5- Les garanties clientèles </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
+                                        </tbody>-->
+                                        @endforeach
+                                    </table>
+                                    @endif
+                                    </div>
+                                    <hr>
                                     <div class="row mb-3">
                                         <label for="politique_produit" class="col-lg-3 col-form-label">Politique de produit</label>
                                         <div class="col-lg-9">
                                             <textarea class="form-control" id="politique_produit" name="politique_produit" rows="2">{{ $business_plan->politique_produit }}</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="politique_prix" class="col-lg-3 col-form-label">Politique de prix</label>
-                                        <div class="col-lg-9">
-                                            <textarea class="form-control" id="politique_prix" name="politique_prix" rows="2">{{ $business_plan->politique_prix }}</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="politique_promotion" class="col-lg-3 col-form-label">Politique de promotion</label>
-                                        <div class="col-lg-9">
-                                            <textarea class="form-control" id="politique_promotion" name="politique_promotion" rows="2">{{ $business_plan->politique_promotion }}</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="politique_distribution" class="col-lg-3 col-form-label">Politique de distribution</label>
-                                        <div class="col-lg-9">
-                                            <textarea class="form-control" id="politique_distribution" name="politique_distribution" rows="2">{{ $business_plan->politique_distribution }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -911,11 +1037,8 @@
                                         <div class="col-lg-6">
                                             <h5 class="card-title left">Chiffre d’affaires de la première année</h5>
                                         </div>
-                                        <div class="col-lg-5 px-0 text-right">
-                                            <label>Quel est le pourcentage d'évolution du chiffre d'affaire?</label>
-                                        </div>
-                                        <div class="col-lg-1 px-1">
-                                            <input type="number" min="0" class="form-control input-sm" name="pourcentage_evolution" placeholder="00" value="{{ $business_plan->pourcentage_evolution }}">
+                                        <div class="col-lg-6 px-0 text-right">
+                                            <label>(%)C'est le pourcentage d'évolution du chiffre d'affaire des cinq ans à venir.</label>
                                         </div>
                                     </div>
                                 </div>
@@ -928,6 +1051,7 @@
                                                 <th scope="col">Quantité </th>
                                                 <th scope="col">Prix unitaire</th>
                                                 <th scope="col">Chiffre d'affaires</th>
+                                                <th scope="col" style="width: 10%">%</th>
                                                 <th scope="col">Actions</th>
                                             </tr>
                                         </thead>
@@ -935,21 +1059,23 @@
                                             @if(($business_plan->chiffre_affaire_first_years)->count()>0)
                                                 @foreach($business_plan->chiffre_affaire_first_years as $key => $business_plan_chiffre_affaire_first_year)
                                                 <tr>
-                                                    <td><input type="text" class="form-control" name="produit[]" placeholder="Produit" value="{{ $business_plan_chiffre_affaire_first_year->produit }}"></td>
+                                                    <td><input type="hidden" name="produit_first[]" value="{{ $business_plan_chiffre_affaire_first_year->id }}"><input type="text" class="form-control" name="produit[]" placeholder="Produit" value="{{ $business_plan_chiffre_affaire_first_year->produit }}"></td>
                                                     <td><input type="text" class="form-control" name="unite_first[]" placeholder="Forfait" value="{{ $business_plan_chiffre_affaire_first_year->unite_first }}"></td>
                                                     <td><input type="text" min="0" id="quantite_first_{{ $business_plan_chiffre_affaire_first_year->id }}" class="form-control" name="quantite_first[]" value="{{ number_format($business_plan_chiffre_affaire_first_year->quantite, 0, ',', ' ') }}" onkeyup="calculeChiffre('quantite_first_{{ $business_plan_chiffre_affaire_first_year->id }}', 'prix_unitaire_first_{{ $business_plan_chiffre_affaire_first_year->id }}', 'chiffre_affaire_first_{{ $business_plan_chiffre_affaire_first_year->id }}');" onclick="calculeChiffre('quantite_first_{{ $business_plan_chiffre_affaire_first_year->id }}', 'prix_unitaire_first_{{ $business_plan_chiffre_affaire_first_year->id }}', 'chiffre_affaire_first_{{ $business_plan_chiffre_affaire_first_year->id }}');"></td>
                                                     <td><input type="text" min="0" id="prix_unitaire_first_{{ $business_plan_chiffre_affaire_first_year->id }}" class="form-control" name="prix_unitaire_first[]" value="{{ number_format($business_plan_chiffre_affaire_first_year->prix_unitaire, 0, ',', ' ') }}" onkeyup="calculeChiffre('quantite_first_{{ $business_plan_chiffre_affaire_first_year->id }}', 'prix_unitaire_first_{{ $business_plan_chiffre_affaire_first_year->id }}', 'chiffre_affaire_first_{{ $business_plan_chiffre_affaire_first_year->id }}');" onclick="calculeChiffre('quantite_first_{{ $business_plan_chiffre_affaire_first_year->id }}', 'prix_unitaire_first_{{ $business_plan_chiffre_affaire_first_year->id }}', 'chiffre_affaire_first_{{ $business_plan_chiffre_affaire_first_year->id }}');"></td>
                                                     <td><input type="text" min="0" id="chiffre_affaire_first_{{ $business_plan_chiffre_affaire_first_year->id }}" class="form-control" name="chiffre_affaire_first[]" value="{{ number_format($business_plan_chiffre_affaire_first_year->chiffre_affaire_first, 0, ',', ' ') }}"></td>
-                                                    <td><button type="button" class="btn btn-danger btn-sm btn-sm removeRow" onclick="removeRow(this)"><i class="fa fa-trash"></i></button></td>
+                                                    <td><input type="number" min="0" id="pourcentage_first_{{ $business_plan_chiffre_affaire_first_year->id }}" class="form-control" name="pourcentage_first[]" placeholder="00" value="{{ number_format($business_plan_chiffre_affaire_first_year->pourcentage_first, 0, ',', ' ') }}"></td>
+                                                    <td><button type="button" class="btn btn-danger btn-sm btn-sm removeRow" onclick="removeRow(this)"><i class="bi bi-trash"></i></button></td>
                                                 </tr>
                                                 @endforeach
                                             @else
                                                 <tr>
-                                                    <td><input type="text" class="form-control" name="produit[]" placeholder="Produit"></td>
+                                                    <td><input type="hidden" name="produit_first[]"><input type="text" class="form-control" name="produit[]" placeholder="Produit"></td>
                                                     <td><input type="text" class="form-control" name="unite_first[]" placeholder="Forfait"></td>
                                                     <td><input type="text" min="0" id="quantite_first" class="form-control" name="quantite_first[]" onkeyup="calculeChiffre('quantite_first', 'prix_unitaire_first', 'chiffre_affaire_first');" onclick="calculeChiffre('quantite_first', 'prix_unitaire_first', 'chiffre_affaire_first');"  value="0"></td>
                                                     <td><input type="text" min="0" id="prix_unitaire_first" class="form-control" name="prix_unitaire_first[]" onkeyup="calculeChiffre('quantite_first', 'prix_unitaire_first', 'chiffre_affaire_first');" onclick="calculeChiffre('quantite_first', 'prix_unitaire_first', 'chiffre_affaire_first');"  value="0"></td>
                                                     <td><input type="text" min="0" id="chiffre_affaire_first" class="form-control" name="chiffre_affaire_first[]"></td>
+                                                    <td><input type="number" min="0" id="pourcentage_first" class="form-control" name="pourcentage_first[]" placeholder="00"></td>
                                                     <td></td>
                                                 </tr>
                                             @endif
@@ -1006,7 +1132,7 @@
                                                     <td><input type="text" min="0" class="form-control" placeholder="Montant" value="{{ number_format($ch_first->an_3, 0, ',', ' ') }}" disabled=""></td>
                                                     <td><input type="text" min="0" class="form-control" placeholder="Montant" value="{{ number_format($ch_first->an_4, 0, ',', ' ') }}" disabled=""></td>
                                                     <td><input type="text" min="0" class="form-control" placeholder="Montant" value="{{ number_format($ch_first->an_5, 0, ',', ' ') }}" disabled=""></td>
-                                                    <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeRow(this)"><i class="fa fa-trash"></i></button></td>
+                                                    <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeRow(this)"><i class="bi bi-trash"></i></button></td>
                                                 </tr>
                                                 @endforeach
                                             @endif
@@ -1019,7 +1145,7 @@
                                                     <td><input type="text" min="0" class="form-control" name="an_3[]" placeholder="Montant" value="{{ number_format($ch_five->an_3, 0, ',', ' ') }}"></td>
                                                     <td><input type="text" min="0" class="form-control" name="an_4[]" placeholder="Montant" value="{{ number_format($ch_five->an_4, 0, ',', ' ') }}"></td>
                                                     <td><input type="text" min="0" class="form-control" name="an_5[]" placeholder="Montant" value="{{ number_format($ch_five->an_5, 0, ',', ' ') }}"></td>
-                                                    <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeRow(this)"><i class="fa fa-trash"></i></button></td>
+                                                    <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeRow(this)"><i class="bi bi-trash"></i></button></td>
                                                 </tr>
                                                 @endforeach
                                             @else
@@ -1040,6 +1166,8 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <!-- Equipement de production -->
                             <div class="card mt-3">
                                 <div class="card-header">
@@ -1082,9 +1210,9 @@
                                             <tr>
                                                 <td><input type="text" class="form-control" name="designation_equipement_exist[]" placeholder="Désignation" value="{{ $equipement_exist->description }}"></td>
                                                 <td><input type="text" class="form-control" name="unite_equipement_exist[]" placeholder="Forfait" value="{{ $equipement_exist->unite }}"></td>
-                                                <td><input type="number" min="0" class="form-control" name="quantite_equipement_exist[]" placeholder="01" value="{{ $equipement_exist->quantite }}"></td>
+                                                <td><input type="number" min="0" class="form-control" name="quantite_equipement_exist[]" placeholder="01" value="{{ number_format($equipement_exist->quantite, 0, ',', ' ') }}"></td>
                                                 <td>
-                                                    <select class="form-control" id="etat_fonctionnement" name="etat_fonctionnement[]">
+                                                    <select class="form-select" id="etat_fonctionnement" name="etat_fonctionnement[]">
                                                         <option value="">Selectionner l'état</option>
                                                         <option value="neuf" @if($equipement_exist->etat_fonctionnement == 'neuf') selected @endif>Neuf</option>
                                                         <option value="bon" @if($equipement_exist->etat_fonctionnement == 'bon') selected @endif>Bon</option>
@@ -1092,7 +1220,7 @@
                                                         <option value="mauvais" @if($equipement_exist->etat_fonctionnement == 'mauvais') selected @endif>Mauvais</option>
                                                     </select>
                                                 </td>
-                                                <td></td>
+                                                <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeRow(this)"><i class="bi bi-trash"></i></button></td>
                                             </tr>
                                             @endforeach
                                             @else
@@ -1101,7 +1229,7 @@
                                                 <td><input type="text" class="form-control" name="unite_equipement_exist[]" placeholder="Forfait"></td>
                                                 <td><input type="number" min="0" class="form-control" name="quantite_equipement_exist[]" placeholder="01"></td>
                                                 <td>
-                                                    <select class="form-control" id="etat_fonctionnement" name="etat_fonctionnement[]">
+                                                    <select class="form-select" id="etat_fonctionnement" name="etat_fonctionnement[]">
                                                         <option value="">Selectionner l'état</option>
                                                         <option value="neuf">Neuf</option>
                                                         <option value="bon">Bon</option>
@@ -1136,9 +1264,9 @@
                                             <tr>
                                                 <td><input type="text" class="form-control" name="designation_equipement_aq[]" placeholder="Désignation" value="{{ $equipement_aq->description }}"></td>
                                                 <td><input type="text" class="form-control" name="unite_equipement_aq[]" placeholder="Forfait" value="{{ $equipement_aq->unite }}"></td>
-                                                <td><input type="number" min="0" class="form-control" name="quantite_equipement_aq[]" placeholder="01" value="{{ $equipement_aq->quantite }}"></td>
+                                                <td><input type="number" min="0" class="form-control" name="quantite_equipement_aq[]" placeholder="01" value="{{ number_format($equipement_aq->quantite, 0, ',', ' ') }}"></td>
                                                 <td><input type="text" class="form-control" name="source_approvisionnement[]" placeholder="Source" value="{{ $equipement_aq->etat_fonctionnement }}"></td>
-                                                <td></td>
+                                                <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeRow(this)"><i class="bi bi-trash"></i></button></td>
                                             </tr>
                                             @endforeach
                                             @else
@@ -1157,6 +1285,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Service exterieur -->
                             <div class="card mt-3">
                                 <div class="card-header bg-ex">
@@ -1184,7 +1313,7 @@
                                                 <td><input type="number" min="0" id="quantite_service_exterieur{{ $service_exterieur->id }}" class="form-control" name="quantite_service_exterieur[]" value="{{ number_format($service_exterieur->quantite, 0, ',', ' ') }}" onkeyup="calculeChiffre('quantite_service_exterieur{{ $service_exterieur->id }}', 'cout_unitaire_service_exterieur{{ $service_exterieur->id }}', 'cout_total_charge_');" onclick="calculeChiffre('quantite_service_exterieur{{ $service_exterieur->id }}', 'cout_unitaire_service_exterieur{{ $service_exterieur->id }}', 'cout_total_service_exterieur{{ $service_exterieur->id }}');"></td>
                                                 <td><input type="text" min="0" id="cout_unitaire_service_exterieur{{ $service_exterieur->id }}" class="form-control" name="cout_unitaire_service_exterieur[]" value="{{ number_format($service_exterieur->cout_unitaire, 0, ',', ' ') }}" onkeyup="calculeChiffre('quantite_service_exterieur{{ $service_exterieur->id }}', 'cout_unitaire_service_exterieur{{ $service_exterieur->id }}', 'cout_total_service_exterieur');" onclick="calculeChiffre('quantite_service_exterieur{{ $service_exterieur->id }}', 'cout_unitaire_service_exterieur{{ $service_exterieur->id }}', 'cout_total_service_exterieur{{ $service_exterieur->id }}');"></td>
                                                 <td><input type="text" id="cout_total_service_exterieur{{ $service_exterieur->id }}" class="form-control" name="cout_total_service_exterieur[]" disabled value="{{ number_format(floatval($service_exterieur->cout_total), 0, ',', ' ') }}"></td>
-                                                <td></td>
+                                                <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeRow(this)"><i class="bi bi-trash"></i></button></td>
                                             </tr>
                                             @endforeach
                                             @else
@@ -1207,107 +1336,110 @@
                             </div>
                             <!-- Matières premières -->
                             <div class="my-5"><div class="alert alert-success w-100">MATIÈRES PREMIÈRES EXISTENTES</div></div>
-                        @foreach ($groupedCharge_exs as $id_valeur => $charge_exs)
-                        <div class="card mt-3">
-                            <div class="card-header bg-ex">
-                                <h5 class="card-title">{{ $charge_exs->first()->valeur_libelle }}</h5>
-                                <small>{{ $charge_exs->first()->description }}</small>
-                            </div>
-                            <div class="card-body">
-                                <input type="hidden" name="charge_existe[]" value="{{ $charge_exs->first()->id_valeur }}">
-                                <table class="table table-bordered" id="chargeExisteTable{{ $charge_exs->first()->id_valeur }}">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" style="width: 30%;">Désignation</th>
-                                            <th scope="col">Unité</th>
-                                            <th scope="col">Quantité</th>
-                                            <th scope="col">Coût unitaire</th>
-                                            <th scope="col">Coût total</th>
-                                            <th scope="col">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if($charge_exs->first()->id)
-                                        @foreach ($charge_exs as $charge_exploitation)
-                                        <tr>
-                                            <td><input type="text" class="form-control" name="designation_charge_existe{{ $charge_exs->first()->id_valeur }}[]" placeholder="Désignation" value="{{ $charge_exploitation->designation }}"></td>
-                                            <td><input type="text" class="form-control" name="unite_charge_existe{{ $charge_exs->first()->id_valeur }}[]" placeholder="Forfait" value="{{ $charge_exploitation->unite }}"></td>
-                                            <td><input type="number" min="0" id="quantite_charge_existe{{ $charge_exploitation->id }}" class="form-control" name="quantite_charge_existe{{ $charge_exs->first()->id_valeur }}[]" value="{{ number_format($charge_exploitation->quantite, 0, ',', ' ') }}" onkeyup="calculeChiffre('quantite_charge_existe{{ $charge_exploitation->id }}', 'cout_unitaire_charge_existe{{ $charge_exploitation->id }}', 'cout_total_charge_{{ $charge_exploitation->id }}');" onclick="calculeChiffre('quantite_charge_existe{{ $charge_exploitation->id }}', 'cout_unitaire_charge_existe{{ $charge_exploitation->id }}', 'cout_total_charge_{{ $charge_exploitation->id }}');"></td>
-                                            <td><input type="text" min="0" id="cout_unitaire_charge_existe{{ $charge_exploitation->id }}" class="form-control" name="cout_unitaire_charge_existe{{ $charge_exs->first()->id_valeur }}[]" value="{{ number_format($charge_exploitation->cout_unitaire, 0, ',', ' ') }}" onkeyup="calculeChiffre('quantite_charge_existe{{ $charge_exploitation->id }}', 'cout_unitaire_charge_existe{{ $charge_exploitation->id }}', 'cout_total_charge_existe{{ $charge_exploitation->id }}');" onclick="calculeChiffre('quantite_charge_existe{{ $charge_exploitation->id }}', 'cout_unitaire_charge_existe{{ $charge_exploitation->id }}', 'cout_total_charge_existe{{ $charge_exploitation->id }}');"></td>
-                                            <td><input type="text" id="cout_total_charge_existe{{ $charge_exploitation->id }}" class="form-control" name="cout_total_charge_existe{{ $charge_exs->first()->id_valeur }}[]" disabled value="{{ number_format($charge_exploitation->cout_total, 0, ',', ' ') }}"></td>
-                                            <td></td>
-                                        </tr>
-                                        @endforeach
-                                        @else
-                                        <tr>
-                                            <td><input type="text" class="form-control" name="designation_charge_existe{{ $charge_exs->first()->id_valeur }}[]" placeholder="Désignation"></td>
-                                            <td><input type="text" class="form-control" name="unite_charge_existe{{ $charge_exs->first()->id_valeur }}[]" placeholder="Forfait"></td>
-                                            <td><input type="number" min="0" id="quantite_charge_existe{{ $charge_exs->first()->id_valeur }}" class="form-control" name="quantite_charge_existe{{ $charge_exs->first()->id_valeur }}[]" onkeyup="calculeChiffre('quantite_charge_existe{{ $charge_exs->first()->id_valeur }}', 'cout_unitaire_charge_existe{{ $charge_exs->first()->id_valeur }}', 'cout_total_charge_existe{{ $charge_exs->first()->id_valeur }}');" onclick="calculeChiffre('quantite_charge_existe{{ $charge_exs->first()->id_valeur }}', 'cout_unitaire_charge_existe{{ $charge_exs->first()->id_valeur }}', 'cout_total_charge_existe{{ $charge_exs->first()->id_valeur }}');" value="0"></td>
-                                            <td><input type="text" min="0" id="cout_unitaire_charge_existe{{ $charge_exs->first()->id_valeur }}" class="form-control" name="cout_unitaire_charge_existe{{ $charge_exs->first()->id_valeur }}[]" onkeyup="calculeChiffre('quantite_charge_existe{{ $charge_exs->first()->id_valeur }}', 'cout_unitaire_charge_existe{{ $charge_exs->first()->id_valeur }}', 'cout_total_charge_existe{{ $charge_exs->first()->id_valeur }}');" onclick="calculeChiffre('quantite_charge_existe{{ $charge_exs->first()->id_valeur }}', 'cout_unitaire_charge_existe{{ $charge_exs->first()->id_valeur }}', 'cout_total_charge_existe{{ $charge_exs->first()->id_valeur }}');" value="0"></td>
-                                            <td><input type="text" min="0" id="cout_total_charge_existe{{ $charge_exs->first()->id_valeur }}" class="form-control" name="cout_total_charge_existe{{ $charge_exs->first()->id_valeur }}[]" value="0" disabled></td>
-                                            <td></td>
-                                        </tr>
-                                        @endif
-                                    </tbody>
-                                </table>
-                                <input type="hidden" id="charge_existe{{ $charge_exs->first()->id_valeur }}" value="{{ $charge_exs->count() }}">
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-secondary" onclick="addChargeExisteRow({{ $charge_exs->first()->id_valeur }});">Ajouter une ligne</button>
+                            @foreach ($groupedCharge_exs as $id_valeur => $charge_exs)
+                            <div class="card mt-3">
+                                <div class="card-header bg-ex">
+                                    <h5 class="card-title">{{ $charge_exs->first()->valeur_libelle }}</h5>
+                                    <small>{{ $charge_exs->first()->description }}</small>
+                                </div>
+                                <div class="card-body">
+                                    <input type="hidden" name="charge_existe[]" value="{{ $charge_exs->first()->id_valeur }}">
+                                    <table class="table table-bordered" id="chargeExisteTable{{ $charge_exs->first()->id_valeur }}">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="width: 30%;">Désignation</th>
+                                                <th scope="col">Quantité</th>
+                                                <th scope="col">État</th>
+                                                <th scope="col">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if($charge_exs->first()->id)
+                                            @foreach ($charge_exs as $charge_exploitation)
+                                            <tr>
+                                                <td><input type="text" class="form-control" name="designation_charge_existe{{ $charge_exs->first()->id_valeur }}[]" placeholder="Désignation" value="{{ $charge_exploitation->designation }}"></td>
+                                                <td><input type="number" min="0" id="quantite_charge_existe{{ $charge_exploitation->id }}" class="form-control" name="quantite_charge_existe{{ $charge_exs->first()->id_valeur }}[]" value="{{ number_format($charge_exploitation->quantite, 0, ',', ' ') }}"></td>
+                                                <td><select class="form-select" id="etat_fonctionnement" name="etat_charge_existe{{ $charge_exs->first()->id_valeur }}[]">
+                                                        <option value="">Selectionner l'état</option>
+                                                        <option value="neuf" @if($charge_exploitation->etat_fonctionnement == 'neuf') selected @endif>Neuf</option>
+                                                        <option value="bon" @if($charge_exploitation->etat_fonctionnement == 'bon') selected @endif>Bon</option>
+                                                        <option value="moyen" @if($charge_exploitation->etat_fonctionnement == 'moyen') selected @endif>Moyen</option>
+                                                        <option value="mauvais" @if($charge_exploitation->etat_fonctionnement == 'mauvais') selected @endif>Mauvais</option>
+                                                    </select></td>
+                                                <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeRow(this)"><i class="bi bi-trash"></i></button></td>
+                                            </tr>
+                                            @endforeach
+                                            @else
+                                            <tr>
+                                                <td><input type="text" class="form-control" name="designation_charge_existe{{ $charge_exs->first()->id_valeur }}[]" placeholder="Désignation"></td>
+                                                <td><input type="number" min="0" id="quantite_charge_existe{{ $charge_exs->first()->id_valeur }}" class="form-control" name="quantite_charge_existe{{ $charge_exs->first()->id_valeur }}[]" value="0"></td>
+                                                <td><select class="form-select" id="etat_fonctionnement" name="etat_charge_existe{{ $charge_exs->first()->id_valeur }}[]">
+                                                        <option value="">Selectionner l'état</option>
+                                                        <option value="neuf">Neuf</option>
+                                                        <option value="bon">Bon</option>
+                                                        <option value="moyen">Moyen</option>
+                                                        <option value="mauvais">Mauvais</option>
+                                                    </select></td>
+                                                <td></td>
+                                            </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                    <input type="hidden" id="charge_existe{{ $charge_exs->first()->id_valeur }}" value="{{ $charge_exs->count() }}">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-secondary" onclick="addChargeExisteRow({{ $charge_exs->first()->id_valeur }});">Ajouter une ligne</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        @endforeach
-                        <div class="my-5"><div class="alert alert-warning w-100">MATIÈRES PREMIÈRES À ACQUÉRIR</div></div>
-                        @foreach ($groupedCharge_aqs as $id_valeur => $charge_aqs)
-                        <div class="card mt-3">
-                            <div class="card-header bg-secondary text-white">
-                                <h5 class="card-title">{{ $charge_aqs->first()->valeur_libelle }}</h5>
-                                <small>{{ $charge_aqs->first()->description }}</small>
-                            </div>
-                            <div class="card-body">
-                                <input type="hidden" name="charge_acquerir[]" value="{{ $charge_aqs->first()->id_valeur }}">
-                                <table class="table table-bordered" id="chargeAcquerirTable{{ $charge_aqs->first()->id_valeur }}">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" style="width: 30%;">Désignation</th>
-                                            <th scope="col">Unité</th>
-                                            <th scope="col">Quantité</th>
-                                            <th scope="col">Coût unitaire</th>
-                                            <th scope="col">Coût total</th>
-                                            <th scope="col">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if($charge_aqs->first()->id)
-                                        @foreach ($charge_aqs as $charge_exploitation)
-                                        <tr>
-                                            <td><input type="text" class="form-control" name="designation_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" placeholder="Désignation" value="{{ $charge_exploitation->designation }}"></td>
-                                            <td><input type="text" class="form-control" name="unite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" placeholder="Forfait" value="{{ $charge_exploitation->unite }}"></td>
-                                            <td><input type="number" min="0" id="quantite_charge_acquerir{{ $charge_exploitation->id }}" class="form-control" name="quantite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" value="{{ number_format($charge_exploitation->quantite, 0, ',', ' ') }}" onkeyup="calculeChiffre('quantite_charge_acquerir{{ $charge_exploitation->id }}', 'cout_unitaire_charge_acquerir{{ $charge_exploitation->id }}', 'cout_total_charge_{{ $charge_exploitation->id }}');" onclick="calculeChiffre('quantite_charge_acquerir{{ $charge_exploitation->id }}', 'cout_unitaire_charge_acquerir{{ $charge_exploitation->id }}', 'cout_total_charge_{{ $charge_exploitation->id }}');"></td>
-                                            <td><input type="text" min="0" id="cout_unitaire_charge_acquerir{{ $charge_exploitation->id }}" class="form-control" name="cout_unitaire_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" value="{{ number_format($charge_exploitation->cout_unitaire, 0, ',', ' ') }}" onkeyup="calculeChiffre('quantite_charge_acquerir{{ $charge_exploitation->id }}', 'cout_unitaire_charge_acquerir{{ $charge_exploitation->id }}', 'cout_total_charge_acquerir{{ $charge_exploitation->id }}');" onclick="calculeChiffre('quantite_charge_acquerir{{ $charge_exploitation->id }}', 'cout_unitaire_charge_acquerir{{ $charge_exploitation->id }}', 'cout_total_charge_acquerir{{ $charge_exploitation->id }}');"></td>
-                                            <td><input type="text" id="cout_total_charge_acquerir{{ $charge_exploitation->id }}" class="form-control" name="cout_total_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" disabled value="{{ number_format(floatval($charge_exploitation->cout_total), 0, ',', ' ') }}"></td>
-                                            <td></td>
-                                        </tr>
-                                        @endforeach
-                                        @else
-                                        <tr>
-                                            <td><input type="text" class="form-control" name="designation_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" placeholder="Désignation"></td>
-                                            <td><input type="text" class="form-control" name="unite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" placeholder="Forfait"></td>
-                                            <td><input type="number" min="0" id="quantite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}" class="form-control" name="quantite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" onkeyup="calculeChiffre('quantite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}', 'cout_unitaire_charge_acquerir{{ $charge_aqs->first()->id_valeur }}', 'cout_total_charge_acquerir{{ $charge_aqs->first()->id_valeur }}');" onclick="calculeChiffre('quantite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}', 'cout_unitaire_charge_acquerir{{ $charge_aqs->first()->id_valeur }}', 'cout_total_charge_acquerir{{ $charge_aqs->first()->id_valeur }}');" value="0"></td>
-                                            <td><input type="text" min="0" id="cout_unitaire_charge_acquerir{{ $charge_aqs->first()->id_valeur }}" class="form-control" name="cout_unitaire_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" onkeyup="calculeChiffre('quantite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}', 'cout_unitaire_charge_acquerir{{ $charge_aqs->first()->id_valeur }}', 'cout_total_charge_acquerir{{ $charge_aqs->first()->id_valeur }}');" onclick="calculeChiffre('quantite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}', 'cout_unitaire_charge_acquerir{{ $charge_aqs->first()->id_valeur }}', 'cout_total_charge_acquerir{{ $charge_aqs->first()->id_valeur }}');" value="0"></td>
-                                            <td><input type="text" min="0" id="cout_total_charge_acquerir{{ $charge_aqs->first()->id_valeur }}" class="form-control" name="cout_total_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" value="0" disabled></td>
-                                            <td></td>
-                                        </tr>
-                                        @endif
-                                    </tbody>
-                                </table>
-                                <input type="hidden" id="charge_acquerir{{ $charge_aqs->first()->id_valeur }}" value="{{ $charge_aqs->count() }}">
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-secondary" onclick="addChargeAcquerirRow({{ $charge_aqs->first()->id_valeur }});">Ajouter une ligne</button>
+                            @endforeach
+                            <div class="my-5"><div class="alert alert-warning w-100">MATIÈRES PREMIÈRES À ACQUÉRIR</div></div>
+                            @foreach ($groupedCharge_aqs as $id_valeur => $charge_aqs)
+                            <div class="card mt-3">
+                                <div class="card-header bg-secondary text-white">
+                                    <h5 class="card-title">{{ $charge_aqs->first()->valeur_libelle }}</h5>
+                                    <small>{{ $charge_aqs->first()->description }}</small>
+                                </div>
+                                <div class="card-body">
+                                    <input type="hidden" name="charge_acquerir[]" value="{{ $charge_aqs->first()->id_valeur }}">
+                                    <table class="table table-bordered" id="chargeAcquerirTable{{ $charge_aqs->first()->id_valeur }}">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="width: 30%;">Désignation</th>
+                                                <th scope="col">Unité</th>
+                                                <th scope="col">Quantité</th>
+                                                <th scope="col">Source d'approvisionnement</th>
+                                                <th scope="col">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if($charge_aqs->first()->id)
+                                            @foreach ($charge_aqs as $charge_exploitation)
+                                            <tr>
+                                                <td><input type="text" class="form-control" name="designation_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" placeholder="Désignation" value="{{ $charge_exploitation->designation }}"></td>
+                                                <td><input type="text" class="form-control" name="unite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" placeholder="Forfait" value="{{ $charge_exploitation->unite }}"></td>
+                                                <td><input type="number" min="0" id="quantite_charge_acquerir{{ $charge_exploitation->id }}" class="form-control" name="quantite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" value="{{ number_format($charge_exploitation->quantite, 0, ',', ' ') }}"></td>
+                                                <td><input type="text" id="source_charge_acquerir{{ $charge_exploitation->id }}" class="form-control" name="source_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" value="{{ $charge_exploitation->etat_fonctionnement }}" placeholder="Source d'approvisionnement"></td>
+                                                <td><button type="button" class="btn btn-danger btn-sm removeRow" onclick="removeRow(this)"><i class="bi bi-trash"></i></button></td>
+                                            </tr>
+                                            @endforeach
+                                            @else
+                                            <tr>
+                                                <td><input type="text" class="form-control" name="designation_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" placeholder="Désignation"></td>
+                                                <td><input type="text" class="form-control" name="unite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" placeholder="Forfait"></td>
+                                                <td><input type="number" min="0" id="quantite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}" class="form-control" name="quantite_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" value="0"></td>
+                                                <td><input type="text" min="0" id="source_charge_acquerir{{ $charge_aqs->first()->id_valeur }}" class="form-control" name="source_charge_acquerir{{ $charge_aqs->first()->id_valeur }}[]" placeholder="Source d'approvisionnement"></td>
+                                                <td></td>
+                                            </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                    <input type="hidden" id="charge_acquerir{{ $charge_aqs->first()->id_valeur }}" value="{{ $charge_aqs->count() }}">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-secondary" onclick="addChargeAcquerirRow({{ $charge_aqs->first()->id_valeur }});">Ajouter une ligne</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        @endforeach
+                            @endforeach
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-2">

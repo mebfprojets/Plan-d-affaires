@@ -531,11 +531,13 @@
                                 <div class="d-flex justify-content-end">
                                     <button type="button" class="btn btn-secondary" id="addRow" onclick="addBanqueRow()">Ajouter une ligne</button>
                                 </div>
+
+                                <!-- Deuxième carte : Compte d'exploitation -->
                                 <input type="hidden" name="first_year" value="{{ $year }}">
 
                                 <label for="compte_exploitation" class="col-lg-3 col-form-label" style="font-weight: bold; text-transform: uppercase;">Compte d’exploitation</label>
                                 <div class="table-responsive">
-                                    
+
                                     <table class="table table-bordered" id="banqueTable">
                                     <thead>
                                         <tr>
@@ -557,12 +559,11 @@
                                     </tbody>
                                 </table>
                                 </div>
-
                                 <label for="compte_exploitation" class="col-lg-3 col-form-label" style="font-weight: bold; text-transform: uppercase;">Bilan en grande masses</label>
                                 <div class="table-responsive">
-                                    
+
                                     <table class="table table-bordered" id="banqueTable">
-                                    
+
                                     <tbody id="banque_area">
                                         <tr>
                                             <th scope="col">ACTIF </th>
@@ -624,7 +625,7 @@
                             @if(($business_plan->chiffre_affaire_first_years)->count()>0)
                             <table class="table table-bordered">
                             @foreach($business_plan->chiffre_affaire_first_years as $key => $business_plan_produit)
-                            
+
                             <thead>
                                 <tr>
                                     <th scope="col" colspan="2">{{ $business_plan_produit->produit }}</th>
@@ -646,7 +647,7 @@
                                         <td><input type="text" min="0" class="form-control" name="critere_description[]" placeholder="Description" value="{{ $criterep?$criterep->description:'' }}"></td>
                                     </tr>
                                 @endforeach
-                                
+
                                 <!--<tr><td>2- Inconvénients </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
                                 <tr><td>3- Les facteurs déterminants de la vente </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
                                 <tr><td>4- La valeur ajoutée </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
@@ -734,7 +735,7 @@
                             @if(($groupedStrategieMarketings)->count()>0)
                             <table class="table table-bordered">
                             @foreach ($groupedStrategieMarketings as $parametre_id => $valeurs)
-                            
+
                             <thead>
                                 <tr>
                                     <th scope="col" colspan="2">{{ $valeurs->first()->libelle_parametre }}</th>
@@ -755,7 +756,7 @@
                                         <td><input type="text" min="0" class="form-control" name="libelle_sm[]" placeholder="Description" value="{{ $sm?$sm->libelle_sm:'' }}"></td>
                                     </tr>
                                 @endforeach
-                                
+
                                 <!--<tr><td>2- Inconvénients </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
                                 <tr><td>3- Les facteurs déterminants de la vente </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
                                 <tr><td>4- La valeur ajoutée </td><td><input type="text" min="0" class="form-control" name="montant_third[]" placeholder="Description" value=""></td></tr>
